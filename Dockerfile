@@ -1,18 +1,17 @@
-# Use an official Maven image to build the app
+# Step 1: Build the app using Maven
 FROM maven:3.9.4-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# Copy everything and build the JAR
 COPY . .
 RUN mvn clean package -DskipTests
 
-# Use a lightweight JDK image to run the app
-FROM eclipse-temurin:17
+# Step 2: Run the app using a lightweight JDK
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
-# Expose your desired port
+# Set the port your app runs on
+ENV PORT=3000
 EXPOSE 3000
 
-# Run the Spring Boot app
-ENTRYPOINT ["java", "-jar", "app.jar"]
+# Start the application
+CMD ["java", "-jar", "app.jar"]
