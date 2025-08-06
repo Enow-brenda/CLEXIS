@@ -1,17 +1,15 @@
-# Step 1: Build the app using Maven
-FROM maven:3.9.4-eclipse-temurin-17 AS build
+# Use the Eclipse temurin alpine official image
+# https://hub.docker.com/_/eclipse-temurin
+FROM eclipse-temurin:21-jdk-alpine
+
+# Create and change to the app directory.
 WORKDIR /app
-COPY . .
-RUN mvn clean package -DskipTests
 
-# Step 2: Run the app using a lightweight JDK
-FROM eclipse-temurin:17-jdk
-WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+# Copy local code to the container image.
+COPY . ./
 
-# Set the port your app runs on
-ENV PORT=3000
-EXPOSE 3000
+# Build the app.
+RUN ./mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
 
-# Start the application
-CMD ["java", "-jar", "app.jar"]
+# Run the app by dynamically finding the JAR file in the target directory
+CMD ["sh", "-c", "java -jar target/*.jar"]
