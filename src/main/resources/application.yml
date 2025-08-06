@@ -1,0 +1,14 @@
+server:
+  port: 3000
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://enowbrenda91106:clexis91106@cluster0.fnr4gwb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: clexis-db  # <-- Add this line
+
+defaultUser:
+  username: admin
+  email: admin.clexis@gmail.com
+  password: admin
+  role: ADMIN
