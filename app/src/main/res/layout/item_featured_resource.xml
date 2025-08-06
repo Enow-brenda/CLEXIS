@@ -1,0 +1,64 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="220dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/border_box"
+    android:layout_marginEnd="12dp"
+    android:padding="12dp">
+
+    <!-- Header: Type icon + verified -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <ImageView
+            android:id="@+id/ivTypeIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/book" />
+
+        <TextView
+            android:id="@+id/tvVerified"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✔ Verified"
+            android:layout_alignParentEnd="true"
+            android:textColor="#4CAF50"
+            android:textSize="12sp"
+            android:padding="2dp"
+            android:background="@drawable/bg_verified_badge"
+            />
+    </RelativeLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginTop="8dp"
+        android:textColor="#212121" />
+
+    <!-- Uploader -->
+    <TextView
+        android:id="@+id/tvUploader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="by Alice"
+        android:textSize="13sp"
+        android:textColor="#555" />
+
+    <!-- Date -->
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Uploaded: Aug 2025"
+        android:textSize="12sp"
+        android:textColor="#999999"
+        android:layout_marginTop="4dp"/>
+</LinearLayout>

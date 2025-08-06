@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Clexis</string>
+    <string name="landing_text">Access curated resources, generate smart study aids, and connect with peers - all in one platform.</string>
+    <string name="landing_heading">Collaborate, Learn, Exchange ,Innovate and Succeed</string>
+    <string name="language">EN</string>
+    <string name="start_button">Get Started</string>
+    <string name="tab_login">Login</string>
+    <string name="tab_signup">Sign Up</string>
+    <string name="welcome_back_title">Welcome Back Learner!!</string>
+    <string name="welcome_back_subtitle">🎉Look who\’s back! The learning legend returns!</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <!-- Signup Header -->
+    <string name="join_title">Create Your Account</string>
+    <string name="join_subtitle">🎯Join our learning community today!</string>
+
+    <!-- Form Fields -->
+    <string name="fname_hint">Full Name</string>
+    <string name="cpassword_hint">Confirm Password</string>
+    <string name="academic_hint">Academic Level</string>
+    <string name="bio_hint">Bio / Interests</string>
+
+    <!-- Button -->
+    <string name="button_create">Create Account</string>
+
+    <!-- Validation Messages -->
+    <string name="error_name">Please enter your full name</string>
+    <string name="error_email">Valid email required</string>
+    <string name="error_password">Minimum 8 characters required</string>
+    <string name="error_password_match">Passwords must match</string>
+
+    <string name="forum_description">Join conversations, ask questions, and share ideas with other students. Learn from different perspectives and grow together as a community.</string>
+    <string name="chats_description">Connect with fellow learners in real time. Whether it’s for quick questions, or casual talk, chatting keeps you in sync with others.</string>
+    <string name="sbuddy_description">Team up with peers to set learning goals, compete in friendly challenges, and keep each other motivated along the way.</string>
+
+
+</resources>

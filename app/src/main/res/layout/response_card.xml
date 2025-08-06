@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_marginBottom="10dp"
+    android:background="@drawable/border_box"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        >
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/profile_picture_card"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="5dp"
+            app:cardCornerRadius="40dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_profile_initials"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/primary"
+                android:gravity="center"
+                android:text="JS"
+                android:textColor="@android:color/white"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="John Smith"
+                android:textColor="@color/textcolor"
+                android:textStyle="bold"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="12/02/2024 23:30"
+                android:textColor="@color/textcolor"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/flashcard"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:layout_marginVertical="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="I’ve been studying non-stop for finals. Here are a few tips that have worked for me: 1. Break study sessions into intervals. 2. Focus on weak topics. 3. Practice past exams. Anyone else have tips to share?"
+        android:textColor="@color/textcolor"/>
+
+</LinearLayout>

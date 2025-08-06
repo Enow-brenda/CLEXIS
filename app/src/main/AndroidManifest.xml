@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Clexis"
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".activity.AuthActivity"/>
+        <activity android:name=".activity.AIResourceDetailActivity"/>
+        <activity android:name=".activity.ViewLearningPlanActivity"/>
+        <activity android:name=".activity.ResourceDescriptionActivity"/>
+        <activity android:name=".activity.NotificationActivity"/>
+        <activity android:name=".activity.ScheduleActivity"/>
+        <activity android:name=".activity.AchievementActivity"/>
+        <activity android:name=".activity.ForumActivity"/>
+        <activity android:name=".activity.ForumDiscussionActivity"/>
+        <activity android:name=".activity.NewChatActivity"/>
+        <activity android:name=".activity.ChatRoomActivity"/>
+        <activity android:name=".activity.ChatListActivity"/>
+        <activity android:name=".activity.AddBuddyProgramActivity"/>
+        <activity android:name=".activity.BuddyProgramActivity"/>
+        <activity android:name=".activity.BuddyProgramListActivity"/>
+        <activity android:name=".activity.SubmissionDetailActivity"/>
+
+    </application>
+
+</manifest>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <!-- Message Bubble -->
+    <TextView
+        android:id="@+id/messageText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/message_box_me"
+        android:text="hi"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:padding="8dp"
+        android:layout_alignParentEnd="true"
+        android:minWidth="40dp" />
+
+    <!-- Time to the left of message, aligned bottom -->
+    <TextView
+        android:id="@+id/messageTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="22:36"
+        android:textSize="12sp"
+        android:textColor="@color/black"
+        android:layout_toStartOf="@id/messageText"
+        android:layout_alignTop="@id/messageText"
+        android:layout_marginEnd="6dp"/>
+</RelativeLayout>

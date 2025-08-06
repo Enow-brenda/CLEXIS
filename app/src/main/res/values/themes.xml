@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Clexis" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/andika_new_basic_r</item>
+        <item name="fontFamily">@font/andika_new_basic_r</item>
+    </style>
+    <style name="BottomNavNoActiveBg" parent="Widget.MaterialComponents.BottomNavigationView">
+
+        <!-- Remove ripple color -->
+        <item name="rippleColor">@color/primary_light</item>
+
+    </style>
+
+
+    <style name="Theme.Clexis" parent="Base.Theme.Clexis" />
+</resources>
