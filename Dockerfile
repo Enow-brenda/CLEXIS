@@ -1,15 +1,22 @@
-# Use the Eclipse temurin alpine official image
-# https://hub.docker.com/_/eclipse-temurin
 FROM eclipse-temurin:21-jdk-alpine
 
-# Create and change to the app directory.
+# Install bash just in case
+RUN apk add --no-cache bash
+
+# Set working directory
 WORKDIR /app
 
-# Copy local code to the container image.
-COPY . ./
+# Copy all files
+COPY . .
 
-# Build the app.
-RUN ./mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
+# Make sure mvnw is executable (defensive)
+RUN chmod +x mvnw
 
-# Run the app by dynamically finding the JAR file in the target directory
+# Build app
+RUN ./mvnw -B -DskipTests clean install
+
+# Expose port 3000 (if your app uses it)
+EXPOSE 3000
+
+# Run jar
 CMD ["sh", "-c", "java -jar target/*.jar"]
