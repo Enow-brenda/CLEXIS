@@ -1,22 +1,17 @@
+# Use the Eclipse Temurin Alpine image
 FROM eclipse-temurin:21-jdk-alpine
-
-# Install bash just in case
-RUN apk add --no-cache bash
 
 # Set working directory
 WORKDIR /app
 
-# Copy all files
+# Copy files
 COPY . .
 
-# Make sure mvnw is executable (defensive)
+# Make mvnw executable (VERY IMPORTANT)
 RUN chmod +x mvnw
 
-# Build app
-RUN ./mvnw -B -DskipTests clean install
+# Build the project
+RUN mvnw -DoutputFile=target/mvn-dependency-list.log -B -DskipTests clean dependency:list install
 
-# Expose port 3000 (if your app uses it)
-EXPOSE 3000
-
-# Run jar
+# Run the jar (adjust the name if needed)
 CMD ["sh", "-c", "java -jar target/*.jar"]

@@ -1,9 +1,8 @@
 package com.brenda.clexis.clientGatewayService.controller.interfaces;
 
-import com.brenda.clexis.clientGatewayService.model.dto.StudentDto;
+import com.brenda.clexis.clientGatewayService.model.dto.application.StudentDto;
 import com.brenda.clexis.clientGatewayService.model.dto.request.ChangePasswordRequest;
 import com.brenda.clexis.clientGatewayService.model.dto.request.LoginRequest;
-import com.brenda.clexis.clientGatewayService.model.dto.request.ResetPasswordRequest;
 import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

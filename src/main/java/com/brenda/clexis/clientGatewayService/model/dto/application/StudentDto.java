@@ -1,4 +1,4 @@
-package com.brenda.clexis.clientGatewayService.model.dto;
+package com.brenda.clexis.clientGatewayService.model.dto.application;
 
 
 import lombok.AllArgsConstructor;
@@ -20,4 +20,5 @@ public class StudentDto {
     private String phone;
     private String bioOrInterest;
     private String profession;
+    private String language;
 }

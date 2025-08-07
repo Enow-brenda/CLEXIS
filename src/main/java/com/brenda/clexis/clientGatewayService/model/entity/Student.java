@@ -24,4 +24,10 @@ public class Student {
     private String bioOrInterest;
     private String phoneNumber;
     private String profession;
+    private String language;
+    private int points;
+    private int resourcePoints;
+    private String communityPoints;
+    private String dateCreated;
+
 }

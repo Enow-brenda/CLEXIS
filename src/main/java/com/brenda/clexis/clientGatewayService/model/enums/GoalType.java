@@ -1,5 +1,5 @@
 package com.brenda.clexis.clientGatewayService.model.enums;
 
-public enum CreationStatus {
-    CREATED,INVITED,PENDING
+public enum GoalType {
+    EXAM , SKill
 }

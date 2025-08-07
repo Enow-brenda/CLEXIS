@@ -1,7 +1,7 @@
 package com.brenda.clexis.clientGatewayService.service.implementations;
 
 
-import com.brenda.clexis.clientGatewayService.model.dto.StudentDto;
+import com.brenda.clexis.clientGatewayService.model.dto.application.StudentDto;
 import com.brenda.clexis.clientGatewayService.model.dto.request.AuthenticationRequest;
 import com.brenda.clexis.clientGatewayService.model.dto.request.ChangePasswordRequest;
 import com.brenda.clexis.clientGatewayService.model.dto.request.LoginRequest;
