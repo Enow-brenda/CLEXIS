@@ -12,3 +12,9 @@ defaultUser:
   email: admin.clexis@gmail.com
   password: admin
   role: ADMIN
+
+api:
+  ai:
+    host:
+    port: 3001
+    generateResource: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/tools/generate

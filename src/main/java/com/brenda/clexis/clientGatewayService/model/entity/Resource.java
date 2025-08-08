@@ -30,6 +30,5 @@ public class Resource {
     private String fileUrl;
     private String imageUrl;
     private String userId;
-    private String username;
-    private LocalDateTime creationDate;
+    private LocalDateTime creationDate = LocalDateTime.now();
 }

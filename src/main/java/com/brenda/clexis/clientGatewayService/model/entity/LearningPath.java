@@ -1,5 +1,6 @@
 package com.brenda.clexis.clientGatewayService.model.entity;
 
+import com.brenda.clexis.clientGatewayService.model.dto.application.Module;
 import com.brenda.clexis.clientGatewayService.model.dto.application.Task;
 import com.brenda.clexis.clientGatewayService.model.enums.GoalType;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class LearningPath {
     private List<Module> modules;
     private String endDate;
     private String startDate;
-    private boolean active;
+    private boolean active = true;
     private String userId;
     private LocalDateTime creationDate;
 }

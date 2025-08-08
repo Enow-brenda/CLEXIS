@@ -88,4 +88,17 @@ public class JWTUtils {
         return extractClaims(token, Claims::getExpiration);
     }
 
+    public Claims extractAllClaims(String token) {
+        return Jwts
+                .parser()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token.replace("Bearer ", ""))
+                .getBody();
+    }
+
+    public String extractUserId(String token) {
+        return extractAllClaims(token).get("userId", String.class);
+    }
+
 }

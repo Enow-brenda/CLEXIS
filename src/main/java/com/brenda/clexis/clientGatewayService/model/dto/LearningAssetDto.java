@@ -1,4 +1,4 @@
-package com.brenda.clexis.clientGatewayService.model.entity;
+package com.brenda.clexis.clientGatewayService.model.dto;
 
 import com.brenda.clexis.clientGatewayService.model.dto.application.Flashcard;
 import com.brenda.clexis.clientGatewayService.model.dto.application.Quiz;
@@ -7,26 +7,16 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.UUID;
-
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Builder
-@Document(collection = "learningAssets")
-public class LearningAssets {
-    @Id
-    private String id = UUID.randomUUID().toString();
+public class LearningAssetDto {
     private String title;
     private String originalFilename;
     private String originalFileUrl;
     private ToolType type;
-    private String summary;
-    private String transcription;
-    private Flashcard flashcards;
-    private Quiz quiz;
-    private String userId;
+    private int count;
+    private int difficulty; //only for quiz 0 for easy,1 for medium,2 for hard
 }

@@ -15,6 +15,7 @@ import java.util.UUID;
 public class Quiz {
     private String quizCode = UUID.randomUUID().toString();
     private List<Mcq> questions;
+    private String difficulty;
     private int highestScore;
     private List<String> users;
     private List<Integer> scores;

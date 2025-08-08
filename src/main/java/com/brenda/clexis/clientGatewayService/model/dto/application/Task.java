@@ -19,10 +19,10 @@ public class Task {
     private boolean completed = false;
     private boolean frequentTask = false;
     private String date;
-    private boolean daily;
-    private boolean weekly;
-    private boolean monthly;
-    private int frequency;
+    private boolean daily = Boolean.FALSE;
+    private boolean weekly = Boolean.FALSE;
+    private boolean monthly = Boolean.FALSE;
+    private int frequency ;
     private List<Integer> scheduledDays;
 
 }
