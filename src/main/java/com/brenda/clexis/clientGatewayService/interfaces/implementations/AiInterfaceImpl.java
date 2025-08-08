@@ -4,6 +4,7 @@ import com.brenda.clexis.clientGatewayService.interfaces.interfaces.AiInterface;
 import com.brenda.clexis.clientGatewayService.model.dto.LearningAssetDto;
 
 
+import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
