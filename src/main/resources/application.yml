@@ -1,0 +1,9 @@
+server:
+  port: ${PORT:8080}
+  forward-headers-strategy: framework
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://enowbrenda91106:clexis91106@cluster0.fnr4gwb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+      database: clexis-db
