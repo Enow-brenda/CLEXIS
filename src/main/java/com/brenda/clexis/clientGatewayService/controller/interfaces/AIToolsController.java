@@ -6,7 +6,7 @@ import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api/v1/gateway/aiTools/")
+@RequestMapping("api/v1/gateway/student/aiTools/")
 public interface AIToolsController {
 
     @PostMapping("add")

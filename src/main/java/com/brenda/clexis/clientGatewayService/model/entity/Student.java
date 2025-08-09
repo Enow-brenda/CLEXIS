@@ -1,5 +1,6 @@
 package com.brenda.clexis.clientGatewayService.model.entity;
 
+import com.brenda.clexis.clientGatewayService.model.enums.AcademicLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,14 +21,14 @@ public class Student {
     @Indexed(unique = true)
     private String userId;
     private String fullName;
-    private String academicLevel;
+    private AcademicLevel academicLevel;
     private String bioOrInterest;
     private String phoneNumber;
     private String profession;
     private String language;
     private int points;
     private int resourcePoints;
-    private String communityPoints;
+    private int communityPoints;
     private String dateCreated;
 
 }

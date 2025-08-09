@@ -1,5 +1,6 @@
 package com.brenda.clexis.clientGatewayService.model.dto.application;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Milestone {
@@ -7,5 +8,5 @@ public class Milestone {
     private String description;
     private boolean quiz;
     private String taskOrQuizCode;
-    private List<Submission> submissionList;
+    private List<Submission> submissionList= List.of();
 }

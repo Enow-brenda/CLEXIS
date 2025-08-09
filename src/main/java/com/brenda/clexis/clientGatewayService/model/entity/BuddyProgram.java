@@ -24,6 +24,7 @@ public class BuddyProgram {
     private String description;
     private String deadline;
     private boolean opened;
+    private String authorId;
     private List<Milestone> mileStoneList;
     private List<BuddyScore> buddies;
 }

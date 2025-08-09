@@ -32,10 +32,10 @@ public class SecurityConfig {
             "/v3/api-docs/**", "/swagger-resources/**","/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html",
              };
     private static final String[] ADMIN_URL = {
-            "/api/v1/gateway/config/**","/api/v1/gateway/role/**","/api/v1/gateway/subscription/**","/api/v1/gateway/user/**","/api/v1/gateway/platform/restricted/**",
+            "/api/v1/gateway/config/**","/api/v1/gateway/role/**","/api/v1/gateway/user/**","/api/v1/gateway/role/**","/api/v1/gateway/admin/**",
     };
     private static final String[] STUDENT_URL = {
-            "/api/v1/gateway/core/**","api/v1/gateway/core/ussd/**"
+            "/api/v1/gateway/student/**"
     };
 
     private final OurUserDetailsService ourUserDetailsService;
@@ -47,7 +47,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(request -> request.requestMatchers(WHITE_LIST_URL).permitAll()
                         .requestMatchers(ADMIN_URL).hasAnyAuthority("ADMIN")
                         .requestMatchers(STUDENT_URL).hasAnyAuthority("STUDENT")
-                        .requestMatchers("/api/v1/gateway/platform/limited/**").hasAnyAuthority("PLATFORM","ADMIN")
                     .anyRequest().authenticated())
             .exceptionHandling(exception -> exception
                 .accessDeniedHandler(customAccessDeniedHandler) // Set custom access denied handler

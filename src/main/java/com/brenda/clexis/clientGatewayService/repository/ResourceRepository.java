@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface ResourceRepository extends MongoRepository<Resource, String> {
     List<Resource> findResourcesByUserId(String userId);
+    Resource findResourceById(String resourceId);
 
 }

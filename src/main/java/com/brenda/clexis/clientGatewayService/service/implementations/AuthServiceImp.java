@@ -35,6 +35,7 @@ public class AuthServiceImp implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final StudentRepository studentRepository;
+    private final StudentProfileService studentProfileService;
 
     @Override
     public ResponseEntity<ResponseDto> login(LoginRequest loginRequest) {
@@ -127,8 +128,11 @@ public class AuthServiceImp implements AuthService {
                .bioOrInterest(studentDto.getBioOrInterest())
                .fullName(studentDto.getFullName())
                .phoneNumber(studentDto.getPhone())
+               .language(studentDto.getLanguage())
                .profession(studentDto.getProfession())
                .build();
+        studentProfileService.createProfile(user.getId(), newStudent.getAcademicLevel().getCode(), newStudent.getProfession(), newStudent.getLanguage(), newStudent.getBioOrInterest());
+        // notify
        return MainResponse.responseOk(studentRepository.save(newStudent));
     }
 

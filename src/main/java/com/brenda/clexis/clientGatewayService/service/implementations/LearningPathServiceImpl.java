@@ -25,6 +25,7 @@ public class LearningPathServiceImpl implements LearningPathService {
     private final HttpServletRequest request;
     private final LearningPathRepository learningPathRepository;
     private final Mappers mappers;
+    private final StudentProfileService studentProfileService;
 
 
     @Override
@@ -68,6 +69,8 @@ public class LearningPathServiceImpl implements LearningPathService {
                     .goalType(learningPathDto.getGoalType())
                     .userId(jWTUtils.extractUserId(getToken()))
                     .build();
+            //notify
+            studentProfileService.recordLearningPathProgress(learningPath.getUserId(), learningPath.getName());
             return MainResponse.responseOk(learningPathRepository.save(learningPath));
 
         } catch (Exception e) {

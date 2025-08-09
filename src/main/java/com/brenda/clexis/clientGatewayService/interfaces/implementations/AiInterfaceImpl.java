@@ -5,6 +5,7 @@ import com.brenda.clexis.clientGatewayService.model.dto.LearningAssetDto;
 
 
 import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
+import com.brenda.clexis.clientGatewayService.utils.Utils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,15 +14,21 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
 public class AiInterfaceImpl implements AiInterface {
 
     private final WebClient webClient;
+    private final Utils utils;
 
     @Value("{api.ai.generateResource}")
     private String generateResourceUrl;
+
+    @Value("{api.ai.getStudentMatches}")
+    private String findMatchUrl;
 
     @Override
     public Object generateResource(LearningAssetDto learningAssetDto) {
@@ -40,5 +47,22 @@ public class AiInterfaceImpl implements AiInterface {
             return res.getData();
         }
         return null;
+    }
+
+    @Override
+    public List<String> findMatches(String userId) {
+        var res = webClient
+                .get()
+                .uri(findMatchUrl)
+                .retrieve()
+                .bodyToMono(ResponseDto.class)
+                .block();
+
+        log.info("ai making resource :: response: {}", res);
+
+        if (res != null && res.getMeta()!=null && res.getMeta().getStatusCode() == 200){
+            return utils.convertListDataObjectFromHashMap(res.data, String.class);
+        }
+        return List.of();
     }
 }

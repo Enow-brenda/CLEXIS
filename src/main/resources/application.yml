@@ -19,3 +19,9 @@ api:
     host:
     port: 3001
     generateResource: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/tools/generate
+    getStudentMatches: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/tools/generate
+    resourceRecommendation: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/resources/propose
+  notification:
+    host:
+    port: 3002
+    sendEmail: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_notification/sendEmail

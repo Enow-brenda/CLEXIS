@@ -1,6 +1,7 @@
 package com.brenda.clexis.clientGatewayService.model.dto.application;
 
 
+import com.brenda.clexis.clientGatewayService.model.enums.AcademicLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class StudentDto {
 
     private String fullName;
-    private String academicLevel;
+    private AcademicLevel academicLevel;
     private String password;
     private String email;
     private String phone;

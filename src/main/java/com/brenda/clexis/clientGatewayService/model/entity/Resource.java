@@ -24,6 +24,8 @@ public class Resource {
     private String description;
     private ResourceType type;
     private boolean verified;
+    private boolean rejected =false;
+    private String reasonForRejection;
     private boolean free;
     private int price;
     private String merchantNumber;

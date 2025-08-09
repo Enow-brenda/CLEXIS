@@ -26,6 +26,7 @@ public class ResourceServiceImpl implements ResourceService {
     private final JWTUtils jWTUtils;
     private final LearningPathService learningPathService;
     private final UserRepository userRepository;
+    private final StudentProfileService studentProfileService;
 
 
     @Override
@@ -65,6 +66,12 @@ public class ResourceServiceImpl implements ResourceService {
                     .merchantNumber(resourceDto.getMerchantNumber())
                     .userId(jWTUtils.extractUserId(learningPathService.getToken()))
                     .build();
+
+            if(resource.isFree()){
+                //notify if resource is free
+                System.out.println("Free resource");
+            }
+            studentProfileService.recordResourceShared(resource.getUserId(),resource.getType().name());
             return MainResponse.responseOk(resourceRepository.save(resource));
         } catch (Exception e) {
             return MainResponse.responseError(e.getMessage());

@@ -1,4 +1,4 @@
-package com.brenda.clexis.clientGatewayService.model.dto.application;
+package com.brenda.clexis.clientGatewayService.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 @NoArgsConstructor
-public class BuddyScore {
-    private String userId;
-    private int score;
+public class RejectResource {
+    private String resourceId;
+    private String reason;
 }

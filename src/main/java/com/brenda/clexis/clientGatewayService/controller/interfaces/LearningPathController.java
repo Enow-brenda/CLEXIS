@@ -6,7 +6,7 @@ import com.brenda.clexis.clientGatewayService.model.entity.LearningPath;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api/v1/gateway/learningPath/")
+@RequestMapping("api/v1/gateway/student/learningPath/")
 public interface LearningPathController {
 
     @PostMapping("add")

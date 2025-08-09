@@ -32,7 +32,6 @@ public class Utils {
     }
 
 
-
     public <T> T convertDataObjectFromHashMap(Object data, Class<T> aClass) {
         return objectMapper.convertValue(data, aClass);
     }

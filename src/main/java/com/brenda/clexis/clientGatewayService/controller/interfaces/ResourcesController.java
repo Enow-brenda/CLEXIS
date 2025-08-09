@@ -6,7 +6,7 @@ import com.brenda.clexis.clientGatewayService.model.entity.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RequestMapping("api/v1/gateway/resources/")
+@RequestMapping("api/v1/gateway/student/resources/")
 public interface ResourcesController {
 
     @GetMapping("getAll")
