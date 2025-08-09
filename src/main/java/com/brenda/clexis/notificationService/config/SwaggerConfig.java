@@ -16,11 +16,11 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .servers(List.of(new Server().url("https://clexis-gateway.up.railway.app")))
+                .servers(List.of(new Server().url("https://clexis-notification.up.railway.app")))
                 .components(new Components()
                         .addSecuritySchemes("bearer-jwt",
                                 new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))
                 .addSecurityItem(new SecurityRequirement().addList("bearer-jwt"))
-                .info(new Info().title("The Client Gateway Service").version("v1").description("This is a client gateway service for clexis a learning platform"));
+                .info(new Info().title("The Notification Service").version("v1").description("This is a notification service for clexis a learning platform."));
     }
 }
