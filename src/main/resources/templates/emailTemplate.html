@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .email-container {
+            max-width: 600px;
+            background-color: #ffffff;
+            margin: 30px auto;
+            padding: 30px 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .logo {
+            max-width: 120px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #d32f2f; /* warm red for branding */
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        p {
+            line-height: 1.6;
+            font-size: 16px;
+            text-align: left;
+        }
+        .footer {
+            margin-top: 40px;
+            font-size: 13px;
+            color: #888;
+            text-align: center;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+            font-style: italic;
+        }
+        .cta {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+        .contact {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+            font-style: normal;
+        }
+        a.email-link {
+            color: #d32f2f;
+            text-decoration: none;
+        }
+        a.email-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="email-container">
+    <!-- Logo: replace src with your actual logo URL or embed base64 -->
+    <img src="https://res.cloudinary.com/dntyjc31a/image/upload/v1754749024/logo_fvcled.png" alt="Clexis Logo" class="logo" />
+
+    <h2 th:text="${title}">Notification Title</h2>
+    <p th:text="${message}">
+        Hello! This is your learning app notification.
+    </p>
+
+    <p>Keep up the great work!<br/>– The Clexis Team</p>
+
+    <div class="cta">
+        <p>Enjoying the app? Please share, and encourage others to join our learning community!</p>
+        <p>Together, we grow stronger.</p>
+    </div>
+
+    <div class="contact">
+        <p>For any feedback, issues, or support, feel free to reach out to us at
+            <a href="mailto:enowbrenda91106@gmail.com" class="email-link">enowbrenda91106@gmail.com</a>.
+        </p>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Learning App, All rights reserved.<br/>
+        You are receiving this email because you are part of the Clexis learning capacity.
+    </div>
+</div>
+</body>
+</html>

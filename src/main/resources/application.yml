@@ -7,3 +7,14 @@ spring:
     mongodb:
       uri: mongodb+srv://enowbrenda91106:clexis91106@cluster0.fnr4gwb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: clexis-db
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: enoweweh@gmail.com
+    password: ooan ryim piqh lmie
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
