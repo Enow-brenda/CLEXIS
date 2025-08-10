@@ -23,6 +23,7 @@ public class Notification {
     private String title;
     private String message;
     private NotificationType type;
+    private String receiverEmail;
     private LocalDateTime timestamp;
-    private List<String> userIds;
+    private String userId;
 }

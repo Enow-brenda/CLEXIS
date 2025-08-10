@@ -1,12 +1,12 @@
 server:
-  port: ${PORT:8080}
+  port: ${PORT:8000}
   forward-headers-strategy: framework
 
 spring:
   data:
     mongodb:
       uri: mongodb+srv://enowbrenda91106:clexis91106@cluster0.fnr4gwb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-      database: clexis-db  # <-- Add this line
+      database: clexis-db
 
 defaultUser:
   username: admin
@@ -22,6 +22,7 @@ api:
     getStudentMatches: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/tools/generate
     resourceRecommendation: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/resources/propose
   notification:
-    host:
-    port: 3002
-    sendEmail: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_notification/sendEmail
+    host: https://clexis-notification.up.railway.app
+    port: 8080
+    sendEmailCustom: ${api.notification.host}/api/v1/notification/sendEmail/custom
+    sendEmailDefined: ${api.notification.host}/api/v1/notification/sendEmail/defined

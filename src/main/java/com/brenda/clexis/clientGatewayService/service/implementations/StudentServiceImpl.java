@@ -37,7 +37,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public ResponseEntity<ResponseDto> notifyStudents(NotificationRequest notificationRequest) {
         try{
-            notificationInterface.sendEmail(notificationRequest);
+            notificationInterface.sendCustomEmail(notificationRequest);
             return MainResponse.responseOk(null,"Students Successfully Notified");
         }catch (Exception e){
             return MainResponse.responseError(e.getMessage());
@@ -100,7 +100,7 @@ public class StudentServiceImpl implements StudentService {
     public ResponseEntity<ResponseDto> getNotifications() {
         try{
             var userId = jWTUtils.extractUserId(learningPathService.getToken());
-            List<Notification> notifications= notificationRepository.findNotificationsByUserIdsContains(userId);
+            List<Notification> notifications= notificationRepository.findNotificationsByUserId(userId);
             return MainResponse.responseOk(notifications,"Notifications Found");
 
         }catch (Exception e){
