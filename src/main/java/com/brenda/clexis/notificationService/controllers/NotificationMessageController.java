@@ -51,7 +51,7 @@ public class NotificationMessageController {
 
 
     @GetMapping("get/{id}")
-    public ResponseEntity<ResponseDto>  getMessageById(String id) {
+    public ResponseEntity<ResponseDto>  getMessageById(@PathVariable String id) {
         log.info("request getting notification message: {} ...", id);
         try{
             var messageMenu = messageService.getNotificationMessage(id);
@@ -63,7 +63,7 @@ public class NotificationMessageController {
     }
 
     @PostMapping("add")
-    public  ResponseEntity<ResponseDto> saveMessage(NotificationMessage message) {
+    public  ResponseEntity<ResponseDto> saveMessage(@RequestBody NotificationMessage message) {
         log.info("request saving  message {}...",message);
         try{
             var messageSave = messageService.saveNotificationMessage(message);
@@ -78,7 +78,7 @@ public class NotificationMessageController {
     }
 
     @PostMapping("addMany")
-    public ResponseEntity<ResponseDto> saveMessages(List<NotificationMessage> notificationMessages) {
+    public ResponseEntity<ResponseDto> saveMessages(@RequestBody List<NotificationMessage> notificationMessages) {
         log.info("request saving  messages {}...", notificationMessages);
         try{
             var messageMenuSave = messageService.saveManyNotificationMessage(notificationMessages);
@@ -93,7 +93,7 @@ public class NotificationMessageController {
     }
 
     @PutMapping("update")
-    public ResponseEntity<ResponseDto> updateMessage(NotificationMessage notificationMessage) {
+    public ResponseEntity<ResponseDto> updateMessage(@RequestBody NotificationMessage notificationMessage) {
         log.info("request updating notification message");
         try{
             var newMessage = messageService.saveNotificationMessage(notificationMessage);
@@ -106,8 +106,8 @@ public class NotificationMessageController {
         }
     }
 
-    @DeleteMapping("delete")
-    public ResponseEntity<ResponseDto> deleteMessage(String id) {
+    @DeleteMapping("delete/{id}")
+    public ResponseEntity<ResponseDto> deleteMessage(@PathVariable String id) {
         log.info("request delete notification message id: {}", id);
         try{
             messageService.DeleteNotificationMessage(id);

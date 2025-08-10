@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class NotificationController {
     private final EmailService emailService;
 
     @PostMapping("sendEmail/custom")
-    public ResponseEntity<ResponseDto> sendCustomNotification(CustomEmailRequestDto customEmailRequestDto) {
+    public ResponseEntity<ResponseDto> sendCustomNotification(@RequestBody CustomEmailRequestDto customEmailRequestDto) {
         log.info("custom request email is: {}", customEmailRequestDto);
         try {
             emailService.sendCustomNotification(customEmailRequestDto);
@@ -33,7 +34,7 @@ public class NotificationController {
     }
 
     @PostMapping("sendEmail/defined")
-    public ResponseEntity<ResponseDto> sendDefinedEmail(EmailRequestDto emailRequestDto) {
+    public ResponseEntity<ResponseDto> sendDefinedEmail(@RequestBody  EmailRequestDto emailRequestDto) {
         log.info("request defined email is: {}", emailRequestDto);
         try {
             emailService.sendDefinedEmail(emailRequestDto);
