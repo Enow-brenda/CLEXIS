@@ -1,10 +1,13 @@
 package com.brenda.clexis.notificationService.services;
 
+import com.brenda.clexis.notificationService.enums.NotificationType;
 import com.brenda.clexis.notificationService.models.EmailRequestDto;
 import com.brenda.clexis.notificationService.models.dto.CustomEmailRequestDto;
+import com.brenda.clexis.notificationService.models.entity.Notification;
 import com.brenda.clexis.notificationService.models.entity.Student;
 import com.brenda.clexis.notificationService.models.entity.User;
 import com.brenda.clexis.notificationService.repository.NotificationMessageRepository;
+import com.brenda.clexis.notificationService.repository.NotificationRepository;
 import com.brenda.clexis.notificationService.repository.StudentRepository;
 import com.brenda.clexis.notificationService.repository.UserRepository;
 import jakarta.mail.MessagingException;
@@ -38,6 +41,8 @@ public class EmailService {
     private MessageService messageService;
     @Autowired
     private NotificationMessageRepository notificationMessageRepository;
+    @Autowired
+    private NotificationRepository notificationRepository;
 
     public void sendNotificationEmail(String to, String subject, String messageBody) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
@@ -57,6 +62,7 @@ public class EmailService {
 
 
         mailSender.send(message);
+
     }
 
     public void sendCustomNotification(CustomEmailRequestDto customEmailRequestDto) {
@@ -67,40 +73,66 @@ public class EmailService {
                 emails.add(user.getEmail());
             }
         }
+        int count = 0;
         for(String email : emails){
             try{
                 sendNotificationEmail(email, customEmailRequestDto.getHeading(), customEmailRequestDto.getMessage());
+                Notification notification = Notification.builder()
+                        .title(customEmailRequestDto.getHeading())
+                        .message(customEmailRequestDto.getMessage())
+                        .type(NotificationType.CUSTOM)
+                        .receiverEmail(email)
+                        .userId(customEmailRequestDto.getRecipients().get(count))
+                        .build();
+                notificationRepository.save(notification);
                 //form the object to store in the db
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+            count++;
 
         }
 
     }
 
     public void sendDefinedEmail(EmailRequestDto emailRequestDto) {
-        List<String> emails = new ArrayList<>();
+        var notificationMessage = notificationMessageRepository.findNotificationMessageById(emailRequestDto.getMessageTag().name());
         for(String userId : emailRequestDto.getRecipients()){
             User user = userRepository.findUserById(userId);
             if(user != null){
 
                 Student student = studentRepository.findStudentByUserId(userId);
                 String language = student.getLanguage();
-                //make in such that you can get the heading and message in fr and eng
+                String message = language.equals("english")? notificationMessage.getMessageEn() : notificationMessage.getMessageFr();
+                String heading = language.equals("english")? notificationMessage.getHeadingEn(): notificationMessage.getHeadingFr();
+                String messageToSend = getEmail(emailRequestDto.getMessageTag().name(),emailRequestDto.getParams(),message);
+                try{
+                    sendNotificationEmail(user.getEmail(),heading,messageToSend);
+                    Notification notification = Notification.builder()
+                            .title(heading)
+                            .message(message)
+                            .type(emailRequestDto.getMessageTag())
+                            .receiverEmail(user.getEmail())
+                            .userId(user.getId())
+                            .build();
+                    notificationRepository.save(notification);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+
+
             }
         }
 
     }
 
-    public String getEmail(EmailRequestDto emailRequestDto) {
-        var message = notificationMessageRepository.findNotificationMessageById(emailRequestDto.getMessageTag().name());
-        log.info("Email Message \nargs: {}\nmessage: {}", emailRequestDto.getParams(), message);
+    public String getEmail(String messageTag, List<String> params,String theMessage) {
+        var message = notificationMessageRepository.findNotificationMessageById(messageTag);
+        log.info("Email Message \nargs: {}\nmessage: {}", params, message);
         if (message!=null){
-            String theMessage ="";
-            if (emailRequestDto.getParams()!=null && !emailRequestDto.getParams().isEmpty()){
-                for (int i = 0; i < emailRequestDto.getParams().size(); i++) {
-                    theMessage = theMessage.replace("{"+i+"}", emailRequestDto.getParams().get(i).toString());
+            if (params!=null && !params.isEmpty()){
+                for (int i = 0; i < params.size(); i++) {
+                    theMessage = theMessage.replace("{"+i+"}", params.get(i));
                 }
             }
             return theMessage;
