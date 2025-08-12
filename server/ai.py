@@ -22,7 +22,7 @@ def generate_prompt(task_type, content, count=10, difficulty=2):
 
     if task_type == "SUMMARY":
         prompt = f"""
-Please summarize the following content in {count} concise and well detailed  paragraph:
+Please summarize the following content in {count} concise and well detailed paragraphs:
 
 {content}
 
