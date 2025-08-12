@@ -1,3 +1,4 @@
+import re
 import requests
 import json
 
@@ -111,8 +112,8 @@ def call_deepseek(prompt):
 
 def parse_response(task_type, response_text):
     try:
-        print(response_text)
-        data = json.loads(response_text)
+        cleaned = clean_json_string(response_text)
+        data = json.loads(cleaned)
     except json.JSONDecodeError:
         raise ValueError("Failed to parse JSON from response")
 
@@ -124,6 +125,18 @@ def parse_response(task_type, response_text):
         return data  # list of quiz question objects
     else:
         raise ValueError("Invalid task type.")
+
+def clean_json_string(raw_text):
+    # Remove Markdown fences if present
+    raw_text = re.sub(r"^```(?:json)?|```$", "", raw_text.strip(), flags=re.MULTILINE).strip()
+
+    # Ensure all double quotes inside strings are valid
+    raw_text = raw_text.replace("“", '"').replace("”", '"')
+
+    # Fix raw newlines inside strings
+    raw_text = re.sub(r'(?<!\\)\n', '\\n', raw_text)
+
+    return raw_text
 
 def getTheResource(task, content, count=None, difficulty=None):
     prompt = generate_prompt(task, content, count or 10, difficulty or 2)
