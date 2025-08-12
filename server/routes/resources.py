@@ -4,7 +4,7 @@ import textract
 
 from fastapi import APIRouter
 from server.models.resources import (
-   ResponseModel, RequestResourceModel
+   ResponseModel, RequestResourceModel ,Quiz
 )
 import requests
 from server.ai import getTheResource
@@ -22,7 +22,20 @@ def generateResource(request: RequestResourceModel):
     else:
         try:
             text = extractPdfText(request.originalFilename)
-            data = getTheResource(request.type.value, text, request.count, request.difficulty)
+            result = getTheResource(request.type.value, text, request.count, request.difficulty)
+            data = result
+            if request.type.value == "QUIZ":
+                data = Quiz(
+                    questions=result,  # result must be a list[MCQ]
+                    difficulty=request.difficulty  # must be an int between 1 and 6
+                )
+            elif request.type.value == "FLASHCARD":
+                data = result
+            elif request.type.value == "SUMMARY":
+                if isinstance(result, list):
+                    paragraph = "\n\n".join(str(item) for item in result)
+                    data = paragraph
+
             return ResponseModel(data, 200, "Sucessful", "")
         except Exception as e:
             return ResponseModel(None, 500, "Error occured while processing",str(e))
