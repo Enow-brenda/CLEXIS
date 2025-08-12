@@ -127,7 +127,6 @@ def parse_response(task_type, response_text):
 
 def getTheResource(task, content, count=None, difficulty=None):
     prompt = generate_prompt(task, content, count or 10, difficulty or 2)
-    print("prompt ",prompt)
     raw_response = call_deepseek(prompt)
     parsed = parse_response(task, raw_response)
     return parsed
@@ -138,4 +137,3 @@ if __name__ == "__main__":
     task = "quiz"  # or "summary" or "flashcards"
     result = getTheResource(task, content, count=5, difficulty="hard")
 
-    print("Parsed response:", result)
