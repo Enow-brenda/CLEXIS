@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/chats")
+@RequestMapping("api/v1/gateway/student")
 public class ChatController {
 
     @Autowired
@@ -84,7 +84,7 @@ public class ChatController {
 
     }
 
-    @DeleteMapping("/chatrooms/{id}")
+    @DeleteMapping("delete/chatrooms/{id}")
     public ResponseEntity<ResponseDto> deleteChatroom(@PathVariable String id) {
         try{
             if(chatroomRepository.findById(id).isPresent()){
