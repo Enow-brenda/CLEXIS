@@ -46,7 +46,7 @@ public class AIToolsServiceImpl implements AIToolsService {
             }
             switch(learningAssetDto.getType()){
                 case FLASHCARD -> {
-                   learningAssets.setFlashcards(utils.convertDataObjectFromHashMap(response, Flashcard.class));
+                   learningAssets.setFlashcards(utils.convertListDataObjectFromHashMap(response, Flashcard.class));
                    break;
                 }
                 case SUMMARY -> {
@@ -106,7 +106,7 @@ public class AIToolsServiceImpl implements AIToolsService {
             }
             switch(learningAssetDto.getType()){
                 case FLASHCARD -> {
-                    learningAssets.setFlashcards(utils.convertDataObjectFromHashMap(response, Flashcard.class));
+                    learningAssets.setFlashcards(utils.convertListDataObjectFromHashMap(response, Flashcard.class));
                     break;
                 }
                 case SUMMARY -> {

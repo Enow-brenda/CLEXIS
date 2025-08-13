@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class LearningAssets {
     private ToolType type;
     private String summary;
     private String transcription;
-    private Flashcard flashcards;
+    private List<Flashcard> flashcards;
     private Quiz quiz;
     private String userId;
 }

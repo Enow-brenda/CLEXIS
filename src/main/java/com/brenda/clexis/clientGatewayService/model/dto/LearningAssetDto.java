@@ -18,5 +18,5 @@ public class LearningAssetDto {
     private String originalFileUrl;
     private ToolType type;
     private int count;
-    private int difficulty; //only for quiz 0 for easy,1 for medium,2 for hard
+    private int difficulty;
 }
