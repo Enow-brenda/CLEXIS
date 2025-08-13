@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -83,6 +84,7 @@ public class EmailService {
                         .type(NotificationType.CUSTOM)
                         .receiverEmail(email)
                         .userId(customEmailRequestDto.getRecipients().get(count))
+                        .timestamp(LocalDateTime.now())
                         .build();
                 notificationRepository.save(notification);
                 //form the object to store in the db
@@ -114,6 +116,7 @@ public class EmailService {
                             .type(emailRequestDto.getMessageTag())
                             .receiverEmail(user.getEmail())
                             .userId(user.getId())
+                            .timestamp(LocalDateTime.now())
                             .build();
                     notificationRepository.save(notification);
                 } catch (Exception e) {
