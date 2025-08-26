@@ -22,8 +22,8 @@
         >
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/profile_picture_card"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_centerHorizontal="true"
             android:layout_marginRight="5dp"
             app:cardCornerRadius="40dp"
@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="JS"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -62,13 +62,13 @@
                 android:layout_width="wrap_content"
                 android:text="12/02/2024 23:30"
                 android:textColor="@color/textcolor"
-                android:textSize="15sp" />
+                android:textSize="13sp" />
 
 
         </LinearLayout>
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/forum"
             />
 

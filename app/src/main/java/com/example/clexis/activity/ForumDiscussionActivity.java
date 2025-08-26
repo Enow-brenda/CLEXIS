@@ -121,7 +121,21 @@ public class ForumDiscussionActivity extends AppCompatActivity {
         // Responses
         LinearLayout responsesContainer = findViewById(R.id.responses_container); // add id to LinearLayout holding responses
         responsesContainer.removeAllViews();
-        if (discussion.getResponses() != null) {
+        if (discussion.getResponses() == null || discussion.getResponses().isEmpty()) {
+            View empty = getLayoutInflater().inflate(R.layout.empty_state, responsesContainer, false);
+            TextView heading  = empty.findViewById(R.id.heading);
+            TextView description  = empty.findViewById(R.id.description);
+            ImageView icon = empty.findViewById(R.id.icon);
+
+            heading.setText("No Responses Yet 🤔");
+            description.setText("Be the first to respond and share your thoughts!");
+            icon.setImageResource(R.drawable.flashcard);
+
+            responsesContainer.setVisibility(View.VISIBLE);
+            responsesContainer.addView(empty);
+
+        }
+        else {
             for (Review review : discussion.getResponses()) {
                 View responseCard = getLayoutInflater().inflate(R.layout.response_card, responsesContainer, false);
                 TextView tvResponseAuthor = responseCard.findViewById(R.id.authorName);
@@ -145,6 +159,7 @@ public class ForumDiscussionActivity extends AppCompatActivity {
                 responsesContainer.addView(responseCard);
             }
         }
+
 
 
         // Optional: Send button
