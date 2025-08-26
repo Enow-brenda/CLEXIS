@@ -13,9 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clexis.R;
 import com.example.clexis.adapters.ModulesAdapter;
-import com.example.clexis.models.Module;
-import com.example.clexis.models.ModuleItem;
-import com.example.clexis.models.Task;
+import com.example.clexis.models.dto.Module;
+import com.example.clexis.models.dto.Task;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,12 +44,8 @@ public class ModulesFragment extends Fragment {
         List<Module> modules = new ArrayList<>();
 
 
-        List<Task> tasks = Arrays.asList(
-                new Task("Code Challenge Practice", Arrays.asList("Tuesday","Friday"), null, false),
-                new Task("Build Personal Portfolio Page", null, "Mar 10, 2024", false)
-        );
 
-        modules.add(new Module("Module 1: Front-End Fundamentals", "Covering HTML5, CSS3, and JavaScript concepts.", tasks));
-        return modules;
+
+       return null;
     }
 }

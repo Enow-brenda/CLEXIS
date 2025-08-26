@@ -1,151 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/white"
-    android:orientation="vertical"
-    >
+    android:background="@color/white">
 
-    <!-- Toolbar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/primary"
-        android:elevation="4dp"
-        app:navigationIcon="@drawable/back"
-        app:title="Forum"
-        app:titleTextColor="@android:color/white" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/border_box"
-        android:layout_margin="10dp"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
-        app:endIconDrawable="@drawable/book"
-        app:boxBackgroundMode="none">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/search_edit_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Find Discussions"
-            android:inputType="text"
-            android:background="@android:color/transparent"
-            android:paddingVertical="12dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"/>
-    </com.google.android.material.textfield.TextInputLayout>
+    <!-- Main Content Wrapper -->
     <LinearLayout
-        android:layout_margin="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="12dp"
-        android:background="@drawable/border_box">
-        <ImageView
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/user"
-            android:layout_marginEnd="16dp"
-            app:tint="@color/white"
-            android:padding="10dp"
-            android:background="@drawable/circle_primary"
-            android:scaleType="centerCrop" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Have anything in mind ?"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Start a Discussion"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/primary"/>
-        </LinearLayout>
-
-    </LinearLayout>
-    <HorizontalScrollView
-        android:layout_width="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="All"
-                android:layout_marginRight="5dp"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/primary"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="General Discussions"
-                android:layout_marginRight="5dp"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/textcolor"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Ask for Help"
-                android:layout_marginRight="5dp"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/textcolor"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Exam Preparation"
-                android:layout_marginRight="5dp"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/textcolor"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Study Tips and Motivations"
-                android:layout_marginRight="5dp"
-                android:textColorHint="@color/white"
-                android:backgroundTint="@color/textcolor"/>
-        </LinearLayout>
-
-    </HorizontalScrollView>
-
-
-
-
-    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <!-- Toolbar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            android:elevation="4dp"
+            app:navigationIcon="@drawable/back"
+            app:title="Community Forum"
+            app:titleTextColor="@android:color/white" />
+        <RelativeLayout
+            android:id="@+id/offline"
+            android:paddingTop="5dp"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="16dp"
+            >
 
-            android:orientation="vertical">
 
-            <include layout="@layout/discussion_card" android:id="@+id/discussion"/>
-        </LinearLayout>
+            <TextView
+                android:layout_alignParentEnd="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Offline Mode"
+                android:textColor="@color/primary"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:background="@drawable/border_box"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp" />
+        </RelativeLayout>
+        <!-- Search Bar -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border_box"
+            android:layout_margin="5dp"
+            app:hintEnabled="false"
+            app:endIconMode="custom"
+            app:endIconDrawable="@drawable/search"
+            app:boxBackgroundMode="none">
 
-    </ScrollView>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/search_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search Discussions"
+                android:inputType="text"
+                android:background="@android:color/transparent"
+                android:paddingVertical="12dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <!-- Scrollable Content -->
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Community Stats Header -->
+                <LinearLayout
+                    android:id="@+id/online"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:paddingHorizontal="16dp"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="📊 Community Stats"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Live Updates"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:background="@drawable/border_box"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp" />
+                </LinearLayout>
+
+
+                <!-- Stats Cards Row -->
+                <LinearLayout
+                    android:id="@+id/statsContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginBottom="20dp">
+
+                </LinearLayout>
+
+                <!-- Categories -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:text="🏷️ Browse Categories"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="2dp"
+                    android:background="@android:color/transparent"
+                    app:tabMode="scrollable"
+                    app:tabGravity="start"
+                    app:tabIndicatorColor="@color/primary"
+                    app:tabIndicatorHeight="3dp"
+                    app:tabSelectedTextColor="@color/primary"
+                    app:tabTextColor="@color/textcolor"
+                    app:tabRippleColor="@color/primary"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabIndicatorGravity="bottom"
+                    app:tabPaddingStart="16dp"
+                    app:tabPaddingEnd="16dp">
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="All" />
+                    <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="General Discussions" />
+                    <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ask for Help" />
+                    <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Exam Preparation" />
+                    <com.google.android.material.tabs.TabItem android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Study Tips and Motivations" />
+                </com.google.android.material.tabs.TabLayout>
+
+                <!-- Recent Discussions -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="10dp"
+                    android:text="💬 Recent Discussions"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <include
+                    layout="@layout/empty_state"
+                    android:id="@+id/noDiscussions"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/discussions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_marginBottom="70dp">
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <!-- Floating Action Buttons -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/fab_new_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        app:icon="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/primary"
+        android:textColor="@color/white"
+        app:iconTint="@color/white"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_scroll_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="70dp"
+        android:src="@android:drawable/ic_menu_upload"
+        app:backgroundTint="@color/secondary"
+        app:tint="@color/white"
+        app:fabSize="mini"
+        app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

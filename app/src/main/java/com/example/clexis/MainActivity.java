@@ -21,6 +21,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.airbnb.lottie.LottieAnimationView;
 import com.airbnb.lottie.LottieDrawable;
 import com.example.clexis.activity.AuthActivity;
+import com.example.clexis.activity.HomeActivity;
 
 import java.util.Locale;
 
@@ -33,7 +34,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadLocale(); // Apply saved language
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+
+        SessionManager session = new SessionManager(this);
+
+        if (session.isLoggedIn()) {
+            // Go to Dashboard
+            startActivity(new Intent(this, HomeActivity.class));
+            finish();
+        } else {
+            // Show Landing Page
+            setContentView(R.layout.activity_main);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(0,systemBars.top,0,systemBars.bottom);

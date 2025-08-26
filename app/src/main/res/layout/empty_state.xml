@@ -18,6 +18,7 @@
         >
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@drawable/summary"
@@ -41,6 +42,17 @@
             android:text="Create modules to organize your learning milestones"
             android:textSize="14sp"
             android:textColor="#9E9E9E"
+            android:textAlignment="center" />
+        <Button
+            android:visibility="gone"
+            android:id="@+id/actionBtn"
+            android:layout_marginTop="2dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Learning Path"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/primary"
             android:textAlignment="center" />
 
     </LinearLayout>

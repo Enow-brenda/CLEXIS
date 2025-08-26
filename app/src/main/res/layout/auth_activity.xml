@@ -89,6 +89,7 @@
             android:layout_height="match_parent">
             <include layout="@layout/fragment_login"
                 android:id="@+id/loginFragment"
+
                 />
             <include layout="@layout/fragment_signup"
                 android:id="@+id/signupFragment"

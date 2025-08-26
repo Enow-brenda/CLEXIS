@@ -15,9 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.clexis.R;
-import com.example.clexis.models.Module;
-import com.example.clexis.models.ModuleItem;
-import com.example.clexis.models.Task;
+import com.example.clexis.models.dto.Module;
+import com.example.clexis.models.dto.Task;
 
 import java.util.List;
 

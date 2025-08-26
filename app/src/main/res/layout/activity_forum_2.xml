@@ -37,9 +37,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <include layout="@layout/discussion_card"/>
+                <include layout="@layout/discussion_card" android:id="@+id/discussion_card"/>
             </LinearLayout>
             <TextView
+                android:id="@+id/responseCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
@@ -47,8 +48,13 @@
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
-            <include layout="@layout/response_card"/>
-            <include layout="@layout/response_card"/>
+            <LinearLayout
+                android:id="@+id/responses_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp"/>
+
         </LinearLayout>
 
     </ScrollView>

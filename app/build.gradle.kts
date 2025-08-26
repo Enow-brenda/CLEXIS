@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+
+
 android {
     namespace = "com.example.clexis"
     compileSdk = 35
@@ -43,6 +45,20 @@ dependencies {
     implementation ("com.airbnb.android:lottie:6.4.0")
     implementation ("com.google.android.material:material:1.12.0")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
+    // Retrofit
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+
+// JSON converter (Gson)
+    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    implementation ("io.realm:realm-android-library:10.16.1")
+
+    compileOnly ("org.projectlombok:lombok:1.18.32")
+    annotationProcessor ("org.projectlombok:lombok:1.18.32")
+
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+
 
 
 

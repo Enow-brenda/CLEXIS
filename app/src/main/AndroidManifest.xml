@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:name=".RealmDb"
         android:theme="@style/Theme.Clexis"
         tools:targetApi="31">
         <activity
@@ -22,7 +26,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.AuthActivity"/>
+<!--        <activity android:name=".activity.HomeActivity"/>-->
         <activity android:name=".activity.AIResourceDetailActivity"/>
+        <activity android:name=".activity.AddResourceActivity"/>
         <activity android:name=".activity.ViewLearningPlanActivity"/>
         <activity android:name=".activity.ResourceDescriptionActivity"/>
         <activity android:name=".activity.NotificationActivity"/>

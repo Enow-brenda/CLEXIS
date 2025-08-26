@@ -2,6 +2,9 @@ package com.example.clexis.activity;
 
 import static android.view.View.GONE;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +15,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.clexis.R;
@@ -34,6 +38,23 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
         EdgeToEdge.enable(this);
+
+        SharedPreferences prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String name= prefs.getString("studentName", "Enow Brenda");
+
+        String[] parts = name.trim().split("\\s+"); // split by space
+        String initials = "";
+
+        for (int i = 0; i < Math.min(2, parts.length); i++) {
+            initials += parts[i].substring(0, 1).toUpperCase();
+        }
+
+        TextView nameValue = findViewById(R.id.initials);
+        nameValue.setText(initials);
+
+        findViewById(R.id.notification).setOnClickListener(v -> {
+            startActivity(new Intent(this,NotificationActivity.class));
+        });
 
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -85,6 +106,34 @@ public class HomeActivity extends AppCompatActivity {
         headerText.setText(headername);
         logo.setVisibility(GONE);
     }
+
+
+    @Override
+    public void onBackPressed() {
+        FragmentManager fm = getSupportFragmentManager();
+
+        // If we are not on HomeFragment
+        if (!(currentFragment instanceof HomeFragment)) {
+            // Clear all fragments
+            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+            // Reset BottomNavigationView to Home
+            bottomNavigationView.setSelectedItemId(R.id.home);
+
+            // Load the HomeFragment manually
+            currentFragment = new HomeFragment();
+            loadFragment(currentFragment, false); // false => don't add to back stack
+        } else {
+            // Already at Home => exit app
+            finishAffinity(); // closes all activities in the task
+        }
+    }
+
+
+
+
+
+
 
     private void loadFragment(Fragment fragment, boolean addToBackStack) {
         FragmentTransaction transaction = getSupportFragmentManager()

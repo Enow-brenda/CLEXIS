@@ -1,26 +1,27 @@
-package com.example.clexis.models;
+package com.example.clexis.models.dto;
 
 import java.util.List;
+import java.util.UUID;
 
 // Module.java
 public class Module {
 
-    private int id;
-    private String title;
+    private String id ;
+    private String moduleName;
     private String objective;
     private List<Task> tasks;
 
 
 
-    public Module(String title, String objective, List<Task> tasks) {
-        this.title = title;
+    public Module(String moduleName, String objective, List<Task> tasks) {
+        this.moduleName = moduleName;
         this.objective = objective;
         this.tasks = tasks;
     }
 
     // Getters
     public String getTitle() {
-        return title;
+        return moduleName;
     }
 
     public String getObjective() {
@@ -32,8 +33,8 @@ public class Module {
     }
 
     // Setters
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public void setObjective(String objective) {

@@ -16,7 +16,7 @@
     <!-- Form Fields -->
     <string name="fname_hint">Nom complet</string>
     <string name="cpassword_hint">Confirmer le mot de passe</string>
-    <string name="academic_hint">Niveau d\'études</string>
+    <string name="phone">Numero de telephone</string>
     <string name="bio_hint">Bio/Centres d\'intérêt</string>
 
     <!-- Button -->
@@ -30,6 +30,7 @@
     <string name="forum_description">Participe aux échanges, pose des questions et partage tes idées avec d\'autres étudiants. Apprends des autres et avance ensemble</string>
     <string name="chats_description">Discute en temps réel avec tes camarades. Pose des questions rapides, organise des groupes ou échange simplement pour rester connecté</string>
     <string name="sbuddy_description">Forme une équipe avec d\'autres apprenants, fixe des objectifs, relève des défis amicaux et reste motivé tout au long du parcours</string>
+    <string name="select_level">Choisir Niveau d\'études</string>
 
 
 </resources>

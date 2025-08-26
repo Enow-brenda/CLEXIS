@@ -1,4 +1,4 @@
-package com.example.clexis.models;
+package com.example.clexis.models.dto;
 public class ModuleItem {
     private String title;
     private String description;

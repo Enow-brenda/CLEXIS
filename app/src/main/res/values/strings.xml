@@ -17,7 +17,7 @@
     <!-- Form Fields -->
     <string name="fname_hint">Full Name</string>
     <string name="cpassword_hint">Confirm Password</string>
-    <string name="academic_hint">Academic Level</string>
+    <string name="phone">Phone Number</string>
     <string name="bio_hint">Bio / Interests</string>
 
     <!-- Button -->
@@ -32,6 +32,6 @@
     <string name="forum_description">Join conversations, ask questions, and share ideas with other students. Learn from different perspectives and grow together as a community.</string>
     <string name="chats_description">Connect with fellow learners in real time. Whether it’s for quick questions, or casual talk, chatting keeps you in sync with others.</string>
     <string name="sbuddy_description">Team up with peers to set learning goals, compete in friendly challenges, and keep each other motivated along the way.</string>
-
+    <string name="select_level">Select Academic Level</string>
 
 </resources>

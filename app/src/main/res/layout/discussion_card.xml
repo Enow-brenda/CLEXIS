@@ -8,10 +8,11 @@
     android:background="@drawable/border_box"
     android:layout_height="wrap_content">
     <TextView
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Discussion Name"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold"/>
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                 android:gravity="center"
                 android:text="JS"
                 android:textColor="@android:color/white"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
         </com.google.android.material.card.MaterialCardView>
@@ -48,13 +49,15 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/authorName"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="John Smith"
                 android:textColor="@color/textcolor"
                 android:textStyle="bold"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
             <TextView
+                android:id="@+id/dateTime"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:text="12/02/2024 23:30"
@@ -66,11 +69,12 @@
         <ImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/flashcard"
+            android:src="@drawable/forum"
             />
 
     </LinearLayout>
     <TextView
+        android:id="@+id/description"
         android:layout_marginVertical="5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -95,7 +99,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:textColor="@color/white"
                 android:text="Add Response"/>
         </LinearLayout>
@@ -113,9 +116,9 @@
                 android:layout_marginRight="5dp"
                 android:src="@drawable/profile"/>
             <TextView
+                android:id="@+id/responses"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:textColor="@color/textcolor"
                 android:text="15 Responses"/>
         </LinearLayout>
