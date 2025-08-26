@@ -11,6 +11,7 @@ import retrofit2.http.Query;
 
 import com.example.clexis.models.dto.CommunityStats;
 import com.example.clexis.models.dto.LearningPathDto;
+import com.example.clexis.models.entity.BuddyProgram;
 import com.example.clexis.models.entity.Discussion;
 import com.example.clexis.models.entity.LearningPath;
 import com.example.clexis.models.entity.Resource;
@@ -73,6 +74,10 @@ public interface ApiService {
     @GET("/api/v1/gateway/student/students/getInfo/{userId}")
     @Headers("Content-Type: application/json")
     Call<ResponseDto<Student>> getStudent(@Path("userId") String userId);
+
+    @GET("/api/v1/gateway/student/buddyProgram/get")
+    @Headers("Content-Type: application/json")
+    Call<ResponseDto<List<BuddyProgram>>> getBuddyPrograms();
 
 
     @POST("/api/v1/gateway/student/discussion/add")

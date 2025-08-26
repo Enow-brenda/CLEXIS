@@ -10,4 +10,5 @@
     <color name="gray2">#4D4B4B</color>
     <color name="textcolor">#666666</color>
     <color name="green">#099538</color>
+    <color name="red">#FF0000</color>
 </resources>
