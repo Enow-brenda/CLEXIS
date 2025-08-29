@@ -42,6 +42,7 @@
                 android:text="Learn python in 3 weeks"
                 android:textColor="#FFFFFF"
                 android:textSize="17sp"
+                android:id="@+id/titleB"
                  />
         </LinearLayout>
 
@@ -88,6 +89,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Leaderboard" />
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tabRequest"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Join Requests" />
             </com.google.android.material.tabs.TabLayout>
 
             <View
@@ -100,14 +107,18 @@
                 android:id="@+id/goals"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <include layout="@layout/componet_goal_card"/>
+                <include layout="@layout/componet_goal_card" android:id="@+id/goalLayout"/>
             </FrameLayout>
             <FrameLayout
                 android:id="@+id/submissions"
                 android:layout_width="match_parent"
                 android:visibility="gone"
                 android:layout_height="wrap_content">
-                <include layout="@layout/fragment_milestone_submission" android:id="@+id/milestone_card"/>
+                <LinearLayout
+                    android:id="@+id/submissionContainer"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
             </FrameLayout>
             <FrameLayout
                 android:visibility="gone"
@@ -116,6 +127,55 @@
                 android:layout_height="wrap_content">
                 <include layout="@layout/fragment_buddy_leaderboard"/>
             </FrameLayout>
+            <FrameLayout
+                android:id="@+id/requests"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <include layout="@layout/component_join_request"/>
+            </FrameLayout>
+            <LinearLayout
+                android:layout_marginTop="50dp"
+                android:id="@+id/notAllowed"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="32dp"
+                >
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:src="@drawable/summary"
+                    app:tint="#BDBDBD"
+                    android:layout_marginBottom="16dp" />
+
+                <TextView
+                    android:id="@+id/heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Members Only"
+                    android:textSize="18sp"
+                    android:textColor="#757575"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This Section is accessible only to program's study buddies. Join Program to access it!"
+                    android:textSize="14sp"
+                    android:textColor="#9E9E9E"
+                    android:textAlignment="center" />
+
+
+            </LinearLayout>
+
 
 
 

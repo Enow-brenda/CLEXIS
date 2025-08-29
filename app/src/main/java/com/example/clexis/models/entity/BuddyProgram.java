@@ -3,6 +3,7 @@ package com.example.clexis.models.entity;
 
 import com.example.clexis.models.application.BuddyScore;
 import com.example.clexis.models.application.Milestone;
+import com.example.clexis.models.dto.JoinRequest;
 
 import java.util.List;
 
@@ -27,5 +28,6 @@ public class BuddyProgram extends RealmObject {
     private String authorId;
     private String authorName;
     private List<Milestone> mileStoneList;
+    private List<JoinRequest> requests;
     private List<BuddyScore> buddies;
 }

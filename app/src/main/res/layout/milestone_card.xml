@@ -28,6 +28,7 @@
 
             <!-- Student Avatar -->
             <TextView
+                android:id="@+id/authorInitials"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:text="A"
@@ -46,6 +47,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/authorName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Alice Johnson"
@@ -54,6 +56,7 @@
                     />
 
                 <TextView
+                    android:id="@+id/date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Submitted 2 hours ago"
@@ -65,6 +68,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ok please find attached my python.py got my hello world program"
@@ -82,6 +86,7 @@
             >
 
             <LinearLayout
+                android:id="@+id/fileSubmission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -91,11 +96,12 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/add_icon"
+                    android:src="@drawable/paper_clip"
                     android:layout_marginEnd="8dp"
                     tools:ignore="ContentDescription" />
 
                 <TextView
+                    android:id="@+id/fileName"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -106,8 +112,9 @@
                     android:background="@android:color/transparent" />
 
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
+                    android:id="@+id/fileDownloadBtn"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:src="@drawable/save"
                     app:tint="@color/black"
                     android:clickable="true"
@@ -128,11 +135,12 @@
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/book"
+                android:src="@drawable/socials"
                 android:layout_marginEnd="4dp"
                 tools:ignore="ContentDescription" />
 
             <TextView
+                android:id="@+id/reviews"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2 Reviews"
@@ -159,6 +167,7 @@
                      />
 
                 <TextView
+                    android:id="@+id/score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0 / 40"
@@ -176,22 +185,12 @@
             android:orientation="horizontal"
             android:gravity="end">
 
+
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/view"
+                android:id="@+id/viewBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quick View"
-                android:textAllCaps="false"
-                android:textSize="14sp"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:textColor="@color/primary"
-                android:layout_marginEnd="8dp"
-                />
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Grade Now"
                 android:textAllCaps="false"
                 android:textSize="14sp"
                 android:textStyle="bold"

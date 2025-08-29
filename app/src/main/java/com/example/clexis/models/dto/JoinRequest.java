@@ -1,17 +1,16 @@
-package com.example.clexis.models.application;
-
+package com.example.clexis.models.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 @Builder
-public class BuddyScore {
+public class JoinRequest {
     private String userId;
-    private String username;
-    private int score;
+    private String why;
+
 }

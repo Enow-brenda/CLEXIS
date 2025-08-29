@@ -37,7 +37,7 @@
                     android:gravity="center"
                     android:text="JS"
                     android:textColor="@android:color/white"
-                    android:textSize="22sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
@@ -49,12 +49,13 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/goalAuthor"
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:text="John Smith"
                     android:textColor="@color/textcolor"
                     android:textStyle="bold"
-                    android:textSize="18sp" />
+                    android:textSize="16sp" />
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -72,6 +73,7 @@
                         />
 
                     <TextView
+                        android:id="@+id/status"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:text="Ongoing"
@@ -86,6 +88,7 @@
 
         </LinearLayout>
         <TextView
+            android:id="@+id/goalDescription"
             android:layout_marginVertical="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -108,6 +111,7 @@
                     android:layout_marginRight="5dp"
                     android:src="@drawable/books"/>
                 <TextView
+                    android:id="@+id/startOrEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -128,6 +132,7 @@
                     android:layout_marginRight="5dp"
                     android:src="@drawable/profile"/>
                 <TextView
+                    android:id="@+id/buddiesCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
@@ -135,11 +140,24 @@
                     android:text="15 Buddies"/>
             </LinearLayout>
         </RelativeLayout>
+        <TextView
+            android:id="@+id/requestToJoin"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:background="@drawable/button"
+            android:text="Request To Join"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dp">
+        android:padding="10dp">
 
         <!-- Header Title -->
         <TextView
@@ -147,7 +165,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Goal Timeline"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -155,21 +173,28 @@
 
         <!-- Timeline Container -->
         <LinearLayout
-            android:layout_marginTop="30dp"
-            android:id="@+id/timelineContainer"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@id/headerTitle"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
+            <LinearLayout
+                android:id="@+id/timelineContainer"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
-            <include  layout="@layout/timeline_task_item"/>
-            <include  layout="@layout/timeline_task_item"/>
+
+            </LinearLayout>
+
 
 
             <!-- Progress Summary Card -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/progressTracker"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -199,6 +224,7 @@
                         >
 
                         <TextView
+                            android:id="@+id/completionMetrics"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="1 of 21 tasks completed"
@@ -206,6 +232,7 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/percentage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="5% Complete"
@@ -216,6 +243,7 @@
                     </RelativeLayout>
 
                     <ProgressBar
+                        android:id="@+id/pBar"
                         android:layout_width="match_parent"
                         android:layout_height="8dp"
                         android:layout_marginTop="12dp"

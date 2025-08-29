@@ -83,4 +83,12 @@ public interface ApiService {
     @POST("/api/v1/gateway/student/discussion/add")
     @Headers("Content-Type: application/json")
     Call<ResponseDto<Discussion>> addDiscussion(@Body Discussion newDiscussion);
+
+    @GET("/api/v1/gateway/student/buddyProgram/get/{id}")
+    @Headers("Content-Type: application/json")
+    Call<ResponseDto<BuddyProgram>> getBuddyProgram(@Path("id") String id);
+
+    @PUT("/api/v1/gateway/student/buddyProgram/update")
+    @Headers("Content-Type: application/json")
+    Call<ResponseDto<BuddyProgram>> updateBuddyProgram(@Body BuddyProgram program);
 }

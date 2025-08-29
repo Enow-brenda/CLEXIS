@@ -5,17 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:paddingHorizontal="10dp"
+    android:paddingTop="10dp"
     >
 
     <!-- Milestone Header Card -->
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/milestoneHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         app:cardCornerRadius="12dp"
+        app:cardBackgroundColor="@color/white"
         app:cardElevation="2dp"
-        app:cardBackgroundColor="@color/primary">
+        android:background="@drawable/border_box">
+        
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,11 +30,14 @@
 
             <!-- Milestone Icon -->
             <ImageView
+                android:id="@+id/icon"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:src="@drawable/books"
                 android:layout_marginEnd="12dp"
+                app:tint="@color/black"
                 tools:ignore="ContentDescription" />
+
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -39,29 +46,32 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/milestoneCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Milestone 1"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     />
 
                 <TextView
+                    android:id="@+id/milestoneTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Introduction to Python"
                     android:textSize="20sp"
                     android:textStyle="bold"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:layout_marginTop="2dp" />
 
                 <TextView
+                    android:id="@+id/submissionCount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="2 submissions • Pending review"
+                    android:text="2 submissions"
                     android:textSize="14sp"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:layout_marginTop="4dp" />
             </LinearLayout>
 
@@ -71,14 +81,16 @@
 
     <!-- Submissions List Header -->
     <LinearLayout
+        android:id="@+id/submissionList"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:gravity="center_vertical"
         android:layout_marginBottom="12dp">
 
         <TextView
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Buddies Submissions"
@@ -86,14 +98,16 @@
             android:textStyle="bold"
             android:textColor="@color/primary"
             />
+        <LinearLayout
+            android:id="@+id/submissions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <include layout="@layout/milestone_card" android:id="@+id/submission_card"/>
-    </LinearLayout>
+    
 
 
 

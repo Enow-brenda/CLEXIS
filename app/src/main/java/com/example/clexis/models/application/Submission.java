@@ -16,10 +16,12 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class Submission {
+    private String authorName;
     private String userId;
     private String submittedDate;
     private String description;
     private String submissionUrl;
+    private String filename;
     private boolean fileSubmission;
     private int score;
     List<Review> reviews;

@@ -297,7 +297,7 @@ public class BuddyProgramListActivity extends AppCompatActivity {
                 }
                 else if(beforeEnd){
                     //ongoing
-                    days = daysDifference(program.getStartDate());
+                    days = daysDifference(program.getDeadline());
                     daysLeft.setText("Ends in "+days+" Days ");
                     status.setText("Ongoing");
                     status.setBackgroundColor(getResources().getColor(R.color.primary_light));
@@ -343,6 +343,8 @@ public class BuddyProgramListActivity extends AppCompatActivity {
                     Intent intent = new Intent(this, BuddyProgramActivity.class);
                     intent.putExtra("isMember",exists);
                     intent.putExtra("programId", program.getId());
+
+                    startActivity(intent);
                 });
 
 
@@ -387,7 +389,7 @@ public class BuddyProgramListActivity extends AppCompatActivity {
             program.setTitle("Buddy Program " + i);
             program.setDescription("This is a description for program " + i);
             program.setDeadline("30-09-2025");
-            program.setStartDate("01-09-2025");
+            program.setStartDate("24-08-2025");
             program.setOpened(i % 2 == 0); // alternate between open/closed
             program.setAuthorId("author-" + i);
             program.setAuthorName("Author " + i);
