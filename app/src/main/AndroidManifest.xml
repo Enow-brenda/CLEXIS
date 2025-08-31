@@ -50,6 +50,7 @@
         <activity android:name=".activity.ChatRoomActivity"/>
         <activity android:name=".activity.ChatListActivity"/>
         <activity android:name=".activity.AddBuddyProgramActivity"/>
+        <activity android:name=".activity.AddLearningPathActivity"/>
         <activity android:name=".activity.BuddyProgramActivity"/>
         <activity android:name=".activity.BuddyProgramListActivity"/>
         <activity android:name=".activity.SubmissionDetailActivity"/>

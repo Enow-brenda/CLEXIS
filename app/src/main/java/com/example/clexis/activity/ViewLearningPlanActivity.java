@@ -111,8 +111,8 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
         } else {
             TextView pathTitle = findViewById(R.id.tv_path_title);
             TextView status  = findViewById(R.id.tv_path_status);
-            ImageView edit  = findViewById(R.id.btn_delete);
-            ImageView delete  = findViewById(R.id.btn_edit_path);
+            ImageView edit  = findViewById(R.id.btn_edit_path);
+            ImageView delete  = findViewById(R.id.btn_delete);
 
             edit.setOnClickListener(v -> {
                 Intent newIntent = new Intent(this, AddLearningPathActivity.class);
@@ -198,6 +198,7 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
             pStats.setText(completedModules+" of "+path.getModules().size() +" objectives completed");
 
             LinearLayout frequentTasks = findViewById(R.id.frequent_tasks);
+
             if(path.getFrequentTasks() == null || path.getFrequentTasks().isEmpty()){
                 View noLpath = getLayoutInflater().inflate(R.layout.empty_state,frequentTasks,false);
                 TextView heading = noLpath.findViewById(R.id.heading);
@@ -214,6 +215,7 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
 
                     taskTitle.setText(task.getTitle());
                     frequency.setText(getFrequency(task));
+                    frequentTasks.addView(taskBox);
                 }
             }
 
@@ -226,8 +228,10 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
                 TextView desc = moduleBox.findViewById(R.id.moduleDesc);
                 ImageView chevron = moduleBox.findViewById(R.id.chevron);
                 LinearLayout tasks = moduleBox.findViewById(R.id.tasks);
+                int index = path.getModules().indexOf(module) ;
+                index++;
 
-                title.setText(module.getTitle());
+                title.setText("Module "+index +": "+module.getTitle());
                 desc.setText("Objective: " +module.getObjective());
                 chevron.setOnClickListener(v -> {
                     if (tasks.getVisibility() == View.VISIBLE) {
@@ -246,8 +250,10 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
                     TextView description = taskBox.findViewById(R.id.task_description);
                     ImageView icon = taskBox.findViewById(R.id.icon);
 
+                    String completedStat = task.isCompleted() ? "Completed" :"Pending";
+
                     taskTitle.setText(task.getTitle());
-                    frequency.setText(task.getDate());
+                    frequency.setText(task.getDate() +" • "+ completedStat);
                     description.setText(task.getDescription());
                     description.setVisibility(VISIBLE);
 
@@ -311,7 +317,10 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
     }
 
     private void deletePath() {
-
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Deleting learning path information...");
+        progressDialog.setCancelable(false); // prevents the user from canceling
+        progressDialog.show();
         deleteLocal();
         Call<ResponseDto<Object>> call = api.deleteLearningPath(); //if no parameter delete active
         call.enqueue(new Callback<ResponseDto<Object>>() {
@@ -398,10 +407,7 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
     }
 
     public LearningPath getLearningPath(){
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Fetching learning path information...");
-        progressDialog.setCancelable(false); // prevents the user from canceling
-        progressDialog.show();
+
         final LearningPath[] path = {getLocalLearningPath()};
         if(path[0] ==null){
             return null;
@@ -410,7 +416,7 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
         call.enqueue(new Callback<ResponseDto<LearningPath>>() {
             @Override
             public void onResponse(Call<ResponseDto<LearningPath>> call, Response<ResponseDto<LearningPath>> response) {
-                progressDialog.dismiss();
+
                 Log.d("API response", "Code: " + response.code() + ", Message: " + response.message());
 
                 if (response.isSuccessful() && response.body() != null) {
@@ -449,6 +455,7 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseDto<LearningPath>> call, Throwable t) {
+
                 Log.d("API response", "Failed to reach the server " + t.getMessage());
             }
 

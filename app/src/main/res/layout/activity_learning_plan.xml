@@ -281,10 +281,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                android:background="@drawable/border_box">
+               >
                 <!-- Tab Layout -->
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"

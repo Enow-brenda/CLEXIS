@@ -17,33 +17,24 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.clexis.R;
-import com.example.clexis.SessionManager;
 import com.example.clexis.activity.AddLearningPathActivity;
-import com.example.clexis.activity.AuthActivity;
-import com.example.clexis.activity.HomeActivity;
 import com.example.clexis.activity.ViewLearningPlanActivity;
-import com.example.clexis.models.Alert;
 import com.example.clexis.models.ApiClient;
 import com.example.clexis.models.ApiService;
 import com.example.clexis.models.Utils;
 import com.example.clexis.models.dto.Module;
 import com.example.clexis.models.dto.Task;
 import com.example.clexis.models.entity.LearningPath;
-import com.example.clexis.models.request.LoginRequest;
-import com.example.clexis.models.response.LoginResponse;
 import com.example.clexis.models.response.ResponseDto;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -156,6 +147,8 @@ public class HomeFragment extends Fragment {
             else if(dayStatus == 1){
                 after = " remaining";
             }
+            TextView pafter = view.findViewById(R.id.after);
+            pafter.setText(after);
 
             TextView ptitle = view.findViewById(R.id.pathTitle);
             TextView pDays = view.findViewById(R.id.days);
@@ -163,8 +156,7 @@ public class HomeFragment extends Fragment {
             ptitle.setText(path.getTitle());
             pDays.setText(path.getRemainingDays());
             ptype.setText("Goal Type: "+path.getGoalType());
-            TextView pafter = view.findViewById(R.id.after);
-            pafter.setText(after);
+
 
              view.findViewById(R.id.viewBtn).setOnClickListener(v -> {
                  startActivity(new Intent(getContext(), ViewLearningPlanActivity.class));
@@ -319,6 +311,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<ResponseDto<LearningPath>> call, Throwable t) {
+                progressDialog.dismiss();
                 Log.d("API response", "Failed to reach the server " + t.getMessage());
             }
 

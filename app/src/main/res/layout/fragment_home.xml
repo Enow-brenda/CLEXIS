@@ -138,6 +138,7 @@
                     android:textColor="@color/secondary"
                     android:text="128 Days"/>
                 <TextView
+                    android:id="@+id/after"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
