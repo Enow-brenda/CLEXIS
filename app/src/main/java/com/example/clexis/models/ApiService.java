@@ -2,6 +2,7 @@ package com.example.clexis.models;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -11,6 +12,7 @@ import retrofit2.http.Query;
 
 import com.example.clexis.models.dto.CommunityStats;
 import com.example.clexis.models.dto.LearningPathDto;
+import com.example.clexis.models.dto.StudentProfileObject;
 import com.example.clexis.models.entity.BuddyProgram;
 import com.example.clexis.models.entity.Discussion;
 import com.example.clexis.models.entity.LearningPath;
@@ -91,4 +93,11 @@ public interface ApiService {
     @PUT("/api/v1/gateway/student/buddyProgram/update")
     @Headers("Content-Type: application/json")
     Call<ResponseDto<BuddyProgram>> updateBuddyProgram(@Body BuddyProgram program);
+
+    @GET("/api/v1/gateway/student/profile/get/{userId}")
+    @Headers("Content-Type: application/json")
+    Call<ResponseDto<StudentProfileObject>> getStudentProfile(@Path("userId") String userId);
+
+    @DELETE("/api/v1/gateway/student/learningPath/delete")
+    Call<ResponseDto<Object>> deleteLearningPath();
 }

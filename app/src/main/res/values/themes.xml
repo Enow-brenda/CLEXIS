@@ -5,7 +5,20 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="android:fontFamily">@font/andika_new_basic_r</item>
         <item name="fontFamily">@font/andika_new_basic_r</item>
+
+        <!-- Toolbar color -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary</item> <!-- same as toolbar -->
+        <item name="colorOnPrimary">@color/white</item>
+
+        <!-- Status bar color (match toolbar) -->
+        <item name="android:statusBarColor">@color/primary</item>
+
+        <!-- Decide if icons should be dark or white -->
+        <item name="android:windowLightStatusBar">false</item> <!-- white icons -->
     </style>
+
+
     <style name="BottomNavNoActiveBg" parent="Widget.MaterialComponents.BottomNavigationView">
 
         <!-- Remove ripple color -->

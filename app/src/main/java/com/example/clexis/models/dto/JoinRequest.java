@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class JoinRequest {
     private String userId;
+    private String username;
     private String why;
 
 }

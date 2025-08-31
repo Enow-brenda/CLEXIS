@@ -5,11 +5,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_marginBottom="10dp"
-    android:background="?android:attr/selectableItemBackground"
-    android:gravity="center_vertical">
+    android:background="@drawable/border_box"
+    android:paddingHorizontal="10dp"
+    android:gravity="center_vertical"
+    >
 
     <!-- Chat content -->
     <LinearLayout
+        android:padding="5dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -23,25 +26,25 @@
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:layout_marginBottom="4dp">
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profile_picture_card"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                app:cardBackgroundColor="@color/primary"
+                android:padding="15dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="5dp"
-                app:cardCornerRadius="40dp"
+                app:cardCornerRadius="15dp"
                 >
 
-                <TextView
-                    android:id="@+id/tv_profile_initials"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/primary"
-                    android:gravity="center"
-                    android:text="MB"
-                    android:textColor="@android:color/white"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@id/medal"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/medal"
+                    />
 
             </com.google.android.material.card.MaterialCardView>
 
@@ -52,22 +55,22 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/tv_chat_name"
+                    android:id="@+id/name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Mac Brenda"
-                    android:textSize="16sp"
-                    android:textColor="#212121"
+                    android:text="Math Challenge 2025"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:maxLines="1"
                     android:ellipsize="end" />
                 <TextView
-                    android:id="@+id/tv_user_since"
+                    android:id="@+id/rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Learner Since 22/03/2025"
+                    android:text="Ranked 20 of 40 participants"
                     android:textSize="12sp"
                     android:textColor="@color/textcolor"
                     android:maxLines="1"
@@ -81,18 +84,19 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:orientation="vertical">
+
                 <TextView
-                    android:id="@+id/tv_timestamp"
+                    android:id="@+id/scoreB"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="200 points"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:layout_marginEnd="5dp" />
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/medal"/>
+                    android:text="30"
+                    android:textStyle="bold"
+                    android:textColor="@color/primary"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Points"/>
             </LinearLayout>
 
 

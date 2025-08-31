@@ -182,8 +182,8 @@
             android:id="@+id/resource"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            card_view:cardCornerRadius="20dp"
+            android:layout_marginBottom="10dp"
+            card_view:cardCornerRadius="10dp"
 
             >
 

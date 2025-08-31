@@ -82,7 +82,7 @@ public class SubmissionDetailActivity extends AppCompatActivity {
         // --- Get Resource Object ---
         Intent intent = getIntent();
         String json = intent.getStringExtra("submission");
-        String mileStoneIndex = intent.getStringExtra("milestoneIndex");
+        mileStoneIndex = intent.getStringExtra("milestoneIndex");
 
         id = intent.getStringExtra("submission");// If you used Gson
         Submission submission = new Gson().fromJson(json, Submission.class);

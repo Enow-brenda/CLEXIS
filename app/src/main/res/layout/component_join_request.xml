@@ -2,6 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/white"
     android:layout_height="match_parent">
 
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Join Requests (20)"
+        android:textSize="18sp"
+        android:padding="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/primary" />
+
+    <!-- List of requests -->
+    <LinearLayout
+        android:id="@+id/rvJoinRequests"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
+        <include layout="@layout/item_join_request"/>
+        <include layout="@layout/item_join_request"/>
+    </LinearLayout>
 </LinearLayout>

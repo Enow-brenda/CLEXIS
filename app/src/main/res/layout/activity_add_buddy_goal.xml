@@ -39,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/white"
-
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="@+id/headerLayout">
 
         <LinearLayout
             android:padding="16dp"
@@ -50,12 +49,37 @@
 
 
             <TextView
+                android:layout_marginTop="60dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:text="Join a Study Buddy session to set and achieve goals together, collaborate, and stay motivated!"
                 android:textColor="#777"
                 android:textSize="14sp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:text="Fealing confused?"
+                    android:textColor="@color/textcolor"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+                <!-- Add Milestone Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/generate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/primary"
+                    android:text="✨ Generate with AI"
+                    android:textColor="@android:color/white"
+                    app:cornerRadius="8dp" />
+            </RelativeLayout>
 
             <!-- Goal Details Section -->
             <TextView
@@ -145,7 +169,6 @@
                     app:cornerRadius="8dp" />
             </RelativeLayout>
 
-            <include layout="@layout/add_milestone_component"/>
 
 
             <!-- Add Study Buddies Section -->
@@ -172,6 +195,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <LinearLayout
+                android:id="@+id/users"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"

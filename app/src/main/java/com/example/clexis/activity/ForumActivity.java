@@ -80,16 +80,13 @@ public class ForumActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
+        // Set your primary color
+        getWindow().setStatusBarColor(ContextCompat.getColor(this, R.color.primary));
+
         setContentView(R.layout.activity_forum_1);
         api = ApiClient.getRetrofitInstance(this).create(ApiService.class);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setNavigationBarColor(Color.WHITE);
-            window.setStatusBarColor(ContextCompat.getColor(this, R.color.primary));
-        }
+
 
 
 

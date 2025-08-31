@@ -30,6 +30,7 @@ import com.example.clexis.activity.ViewLearningPlanActivity;
 import com.example.clexis.models.Alert;
 import com.example.clexis.models.ApiClient;
 import com.example.clexis.models.ApiService;
+import com.example.clexis.models.Utils;
 import com.example.clexis.models.dto.Module;
 import com.example.clexis.models.dto.Task;
 import com.example.clexis.models.entity.LearningPath;
@@ -146,12 +147,24 @@ public class HomeFragment extends Fragment {
             taskContainer.setVisibility(VISIBLE);
             taskFragments.removeAllViews();
 
+            Utils util = new Utils();
+            int dayStatus = util.getDayStatus(path.getStartDate(),path.getDueDate());
+            String after = " due";
+            if(dayStatus == 0){
+                after = " to Start";
+            }
+            else if(dayStatus == 1){
+                after = " remaining";
+            }
+
             TextView ptitle = view.findViewById(R.id.pathTitle);
             TextView pDays = view.findViewById(R.id.days);
             TextView ptype = view.findViewById(R.id.pathType);
             ptitle.setText(path.getTitle());
             pDays.setText(path.getRemainingDays());
             ptype.setText("Goal Type: "+path.getGoalType());
+            TextView pafter = view.findViewById(R.id.after);
+            pafter.setText(after);
 
              view.findViewById(R.id.viewBtn).setOnClickListener(v -> {
                  startActivity(new Intent(getContext(), ViewLearningPlanActivity.class));

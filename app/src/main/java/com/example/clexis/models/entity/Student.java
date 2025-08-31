@@ -3,6 +3,15 @@ package com.example.clexis.models.entity;
 
 import com.example.clexis.models.enums.AcademicLevel;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 public class Student {
 
     private String id;
@@ -21,7 +30,4 @@ public class Student {
     private String dateCreated;
 
 
-    public String getFullName(){
-        return fullName;
-    }
 }

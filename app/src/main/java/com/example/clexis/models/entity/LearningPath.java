@@ -1,5 +1,6 @@
 package com.example.clexis.models.entity;
 
+import com.example.clexis.models.Utils;
 import com.example.clexis.models.dto.Module;
 import com.example.clexis.models.dto.Task;
 import com.example.clexis.models.enums.GoalType;
@@ -16,7 +17,10 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.RealmObject;
+import lombok.Data;
+import lombok.Getter;
 
+@Data
 public class LearningPath extends RealmObject {
 
     private String id;
@@ -26,6 +30,7 @@ public class LearningPath extends RealmObject {
     private List<Task> frequentTasks;
     private List<Module> modules;
     private String endDate;
+    @Getter
     private String startDate;
     private boolean active = true;
     private String userId;
@@ -109,11 +114,14 @@ public class LearningPath extends RealmObject {
     public String getRemainingDays() {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         try {
-            Date end = sdf.parse(endDate);
-            Date start = sdf.parse(endDate);
+            Date finalD = sdf.parse(endDate);
             Date today = Calendar.getInstance().getTime();
+            Utils util = new Utils();
+            if(util.getDayStatus(startDate,endDate)==0){
+                finalD = sdf.parse(startDate);
+            }
 
-            long diffInMillies = end.getTime() - today.getTime();
+            long diffInMillies = Math.abs(finalD.getTime() - today.getTime());
             long days = diffInMillies / (1000 * 60 * 60 * 24); // convert ms → days
             return String.valueOf(days) + " Days";
         } catch (ParseException e) {

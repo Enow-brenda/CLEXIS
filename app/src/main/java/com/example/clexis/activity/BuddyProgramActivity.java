@@ -132,7 +132,7 @@ public class BuddyProgramActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
         TabLayout.Tab tab = tabLayout.getTabAt(3); // Get tab at position 1
         if (tab != null) {
-            tab.view.setVisibility(GONE);
+            tab.view.setVisibility(VISIBLE);
         }
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -214,6 +214,7 @@ public class BuddyProgramActivity extends AppCompatActivity {
             initials.setText(initial);
             TextView author = goalComponent.findViewById(R.id.goalAuthor);
             author.setText(program.getAuthorName());
+
 
             TextView status = goalComponent.findViewById(R.id.status);
             TextView date = goalComponent.findViewById(R.id.startOrEnd);
@@ -427,6 +428,7 @@ public class BuddyProgramActivity extends AppCompatActivity {
                 date.setText(program.getDeadline());
                 status.setTextColor(getResources().getColor(R.color.red));
             }
+
             int completionCount =0;
             timeline.removeAllViews();
             int milestones = 0;
@@ -597,8 +599,143 @@ public class BuddyProgramActivity extends AppCompatActivity {
 
                 LinearLayout userList = leaderboardComponent.findViewById(R.id.users);
 
+                //edit functionality available only for creators
+                if(!program.getAuthorId().equals(sessionManager.getId())){
+                    ImageView edit = goalComponent.findViewById(R.id.edit);
+                    edit.setOnClickListener(v->{
+                        Intent newIntent = new Intent(this, AddBuddyProgramActivity.class);
+                        newIntent.putExtra("action","edit");
+                        newIntent.putExtra("programId",program.getId());
+                        startActivity(newIntent);
+                    });
+                    edit.setVisibility(VISIBLE);
+                }
+
+                //requests setup
+//                tabLayout = findViewById(R.id.tabLayout);
+//                TabLayout.Tab tab = tabLayout.getTabAt(3);
+//
+//                if (tab != null && program.getAuthorId().equals(sessionManager.getId())) {
+//                    tab.view.setVisibility(VISIBLE);
+//                }
+
+                TextView heading1 = requestComponent.findViewById(R.id.tvTitle);
+                LinearLayout list = requestComponent.findViewById(R.id.rvJoinRequests);
+                heading1.setText("Pending Join Requests ("+program.getRequests().size()+")");
+                list.removeAllViews();
+                if(program.getRequests()==null || program.getRequests().isEmpty() ){
+                    View empty1 = getLayoutInflater().inflate(R.layout.empty_state,list,false);
+                    TextView heading  = empty1.findViewById(R.id.heading);
+                    TextView description  = empty1.findViewById(R.id.description);
+                    ImageView iconB = empty1.findViewById(R.id.icon);
+
+                    heading.setText("No Pending Join Requests Yet \uD83D\uDE80");
+                    description.setText("Nobody has requested to join this program yet.\\nStay tuned!");
+                    iconB.setImageResource(R.drawable.buddy);
+
+                    list.addView(empty1);
+                }else{
+                    for(JoinRequest request: program.getRequests()){
+                        View container = getLayoutInflater().inflate(R.layout.item_join_request, (ViewGroup) requestComponent,false);
+                        TextView user = container.findViewById(R.id.tvUserId);
+                        TextView reason = container.findViewById(R.id.tvWhy);
+                        Button accept = container.findViewById(R.id.btnAccept);
+                        Button reject = container.findViewById(R.id.btnReject);
+
+                        user.setText(request.getUsername());
+                        reason.setText(request.getWhy());
+                        accept.setOnClickListener(a -> {
+                            new AlertDialog.Builder(this) // use "this" if inside Activity, or "getContext()" if inside Fragment
+                                    .setTitle("Confirm Accept")
+                                    .setMessage("Are you sure you want to accept this request?")
+                                    .setPositiveButton("Yes", (dialog, which) -> {
+                                        // ✅ Handle accept action here
+                                        program = getBuddyProgram(id);
+                                        if(isOnline){
+                                            BuddyScore buddy = BuddyScore.builder()
+                                                    .username(request.getUsername())
+                                                    .score(0)
+                                                    .userId(request.getUserId())
+                                                    .build();
+                                            var buddiesP = program.getBuddies();
+                                            buddiesP.add(buddy);
+                                            program.setBuddies(buddiesP);
+                                            program.getRequests().remove(request);
+                                            boolean updated = updateProgram();
+                                            if (updated) {
+                                                // Success styling
+                                                Toast toast = Toast.makeText(BuddyProgramActivity.this,
+                                                        "✓ Request Accepted! You have a new buddy now",
+                                                        Toast.LENGTH_LONG);
+                                                // Custom toast styling could be added here
+                                                toast.show();
+                                                dialog.dismiss();
+                                            } else {
+
+                                                Toast.makeText(BuddyProgramActivity.this,
+                                                        "⚠ Error occurred while processing request. Please try again.",
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                        } else {
+
+                                            Toast.makeText(BuddyProgramActivity.this,
+                                                    "⚠ No internet connection. Please check your network and try again.",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                        // e.g. call your API or update list
+                                    })
+                                    .setNegativeButton("No", (dialog, which) -> {
+                                        dialog.dismiss(); // just close
+                                    })
+                                    .show();
+                        });
+
+                        reject.setOnClickListener(r->{
+                            new AlertDialog.Builder(this) // use "this" if inside Activity, or "getContext()" if inside Fragment
+                                    .setTitle("Confirm Rejection")
+                                    .setMessage("Are you sure you want to reject this request?")
+                                    .setPositiveButton("Yes", (dialog, which) -> {
+                                        program = getBuddyProgram(id);
+                                        if(isOnline){
+
+                                            program.getRequests().remove(request);
+                                            boolean updated = updateProgram();
+                                            if (updated) {
+                                                // Success styling
+                                                Toast toast = Toast.makeText(BuddyProgramActivity.this,
+                                                        "✓ Request Rejected!",
+                                                        Toast.LENGTH_LONG);
+                                                // Custom toast styling could be added here
+                                                toast.show();
+                                                dialog.dismiss();
+                                            } else {
+
+                                                Toast.makeText(BuddyProgramActivity.this,
+                                                        "⚠ Error occurred while processing request. Please try again.",
+                                                        Toast.LENGTH_LONG).show();
+                                            }
+                                        } else {
+
+                                            Toast.makeText(BuddyProgramActivity.this,
+                                                    "⚠ No internet connection. Please check your network and try again.",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    })
+                                    .setNegativeButton("No", (dialog, which) -> {
+                                        dialog.dismiss(); // just close
+                                    })
+                                    .show();
+                        });
+
+                        list.addView(container);
+
+                    }
+                }
+
+
+
+
                 //leaderboard setups
-                View leaderboardContainer = getLayoutInflater().inflate(R.layout.fragment_buddy_leaderboard, (ViewGroup) leaderboardComponent,false);
                 TextView programTitle = leaderboardComponent.findViewById(R.id.programTitle);
                 TextView programDaysLeft = leaderboardComponent.findViewById(R.id.daysLeft);
                 TextView programParticipants = leaderboardComponent.findViewById(R.id.participants);
@@ -649,12 +786,18 @@ public class BuddyProgramActivity extends AppCompatActivity {
                         chatName.setText(buddyScore.getUsername());
                         chatInitials.setText(utils.getInitials(buddyScore.getUsername()));
                         points.setText(buddyScore.getScore() + " Points");
+                        user.setBackgroundColor(ContextCompat.getColor(this, R.color.green));
 
-                        if(scores.indexOf(buddyScore) <=3 ){
-                            user.setBackgroundColor(getColor(R.color.green));
-                        }
+
 
                         //adjust medals in future
+                        if(scores.indexOf(buddyScore) == 0 ){
+                            medals.setImageResource(R.drawable.first_medal);
+                        }else if(scores.indexOf(buddyScore) == 1 ){
+                            medals.setImageResource(R.drawable.second_place);
+                        }else if(scores.indexOf(buddyScore) == 2){
+                        medals.setImageResource(R.drawable.third_place);
+                         }
 
 
                         userList.addView(user);
@@ -959,6 +1102,19 @@ public class BuddyProgramActivity extends AppCompatActivity {
         milestone2.setTaskOrQuizCode("quiz-api-002");
         milestone2.setSubmissionList(List.of());
 
+        JoinRequest join1 = JoinRequest.builder()
+                .userId("user-01")
+                .username("Brenda Eweh")
+                .why("I would love to join this competition and test my skills.")
+                .build();
+
+        JoinRequest join2 = JoinRequest.builder()
+                .userId("user-02")
+                .username("Kanjo Elkamira Ndi")
+                .why("Joining to connect with others and gain experience.")
+                .build();
+        buddyProgram.setRequests(List.of(join1,join2));
+
 // Add milestones
         buddyProgram.setMileStoneList(List.of(milestone1, milestone2));
 
@@ -970,7 +1126,7 @@ public class BuddyProgramActivity extends AppCompatActivity {
 
         BuddyScore buddy2 = new BuddyScore();
         buddy2.setUserId("user-002");
-        buddy1.setUsername("Buddy2");
+        buddy2.setUsername("Buddy2");
         buddy2.setScore(12);
 
         BuddyScore buddy3 = new BuddyScore();
@@ -983,7 +1139,7 @@ public class BuddyProgramActivity extends AppCompatActivity {
         buddy4.setUsername("Buddy4");
         buddy4.setScore(6);
 
-        buddyProgram.setBuddies(List.of(buddy1, buddy2));
+        buddyProgram.setBuddies(List.of(buddy1, buddy2,buddy3,buddy4));
 
         return buddyProgram;
 
