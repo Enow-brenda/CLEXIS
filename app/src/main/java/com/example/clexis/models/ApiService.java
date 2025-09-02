@@ -16,6 +16,7 @@ import com.example.clexis.models.dto.StudentProfileObject;
 import com.example.clexis.models.entity.BuddyProgram;
 import com.example.clexis.models.entity.Discussion;
 import com.example.clexis.models.entity.LearningPath;
+import com.example.clexis.models.entity.Notification;
 import com.example.clexis.models.entity.Resource;
 import com.example.clexis.models.entity.Student;
 import com.example.clexis.models.request.LoginRequest;
@@ -100,4 +101,6 @@ public interface ApiService {
 
     @DELETE("/api/v1/gateway/student/learningPath/delete")
     Call<ResponseDto<Object>> deleteLearningPath();
+    @GET("/api/v1/gateway/student/notification/get")
+    Call<ResponseDto<List<Notification>>> getNotifications();
 }

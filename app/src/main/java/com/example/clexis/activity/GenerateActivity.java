@@ -1,12 +1,10 @@
 package com.example.clexis.activity;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,14 +12,13 @@ import androidx.core.content.ContextCompat;
 
 import com.example.clexis.R;
 
-public class AddLearningPathActivity  extends AppCompatActivity {
+public class GenerateActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_create_learning_path);
-
+        setContentView(R.layout.generate_with_ai_modal);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -29,10 +26,5 @@ public class AddLearningPathActivity  extends AppCompatActivity {
             window.setNavigationBarColor(Color.WHITE);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.primary));
         }
-        Button generate = findViewById(R.id.generate);
-        generate.setOnClickListener(v->{
-            Intent intent = new Intent(this,GenerateActivity.class);
-            startActivity(intent);
-        });
     }
 }

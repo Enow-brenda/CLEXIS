@@ -56,6 +56,9 @@ dependencies {
     compileOnly ("org.projectlombok:lombok:1.18.32")
     annotationProcessor ("org.projectlombok:lombok:1.18.32")
 
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
+
+
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 

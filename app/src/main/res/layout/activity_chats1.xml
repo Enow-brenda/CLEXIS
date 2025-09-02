@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/primary"
-        android:padding="16dp"
+        android:padding="10dp"
         android:gravity="center_vertical"
         android:elevation="4dp">
         <ImageView
@@ -68,7 +68,6 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:padding="10dp"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout

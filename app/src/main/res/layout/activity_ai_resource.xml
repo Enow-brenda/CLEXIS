@@ -33,6 +33,7 @@
             android:layout_weight="1"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/resource_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -42,6 +43,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="8dp" />
             <TextView
+                android:id="@+id/type"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Flashcard Resource"
@@ -49,11 +51,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="8dp" />
         </LinearLayout>
-        <ImageView
-            android:id="@+id/delete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/delete"/>
+
 
 
 
@@ -87,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="20dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -105,16 +103,16 @@
                         android:background="@drawable/border_box"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="16dp">
+                        android:padding="5dp">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_marginEnd="16dp"
-                            app:cardCornerRadius="12dp"
-                            app:cardElevation="2dp">
+                            >
 
                             <ImageView
+                                android:id="@+id/icon"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:background="@drawable/circle_primary"
@@ -136,6 +134,7 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-medium"
                                 android:text="document.pdf"
+                                android:maxLines="1"
                                 android:textColor="@color/black"
                                 android:textSize="16sp"
                                 android:textStyle="bold" />
@@ -162,6 +161,7 @@
                                     android:background="@drawable/circle_green" />
 
                                 <TextView
+                                    android:id="@+id/extension"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="PDF"
@@ -220,7 +220,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:visibility="gone"
+                 android:visibility="gone"
                 app:cardBackgroundColor="@color/primary_light"
                 app:cardCornerRadius="10dp"
                 app:cardElevation="4dp">
@@ -304,40 +304,45 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:weightSum="2"
                         android:orientation="horizontal">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_prev_flashcard"
+                            android:layout_weight="1"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="16dp"
                             android:paddingHorizontal="24dp"
+                            android:paddingVertical="10dp"
                             android:text="Previous"
                             app:cornerRadius="24dp"
                             android:textColor="@color/white"
                             app:strokeColor="@color/white" />
-
                         <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btn_flip_card"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:backgroundTint="@color/green"
-                            android:paddingHorizontal="24dp"
-                            android:text="Flip"
-                            app:cornerRadius="24dp" />
-
-                        <com.google.android.material.button.MaterialButton
+                            android:layout_weight="1"
                             android:id="@+id/btn_next_flashcard"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:backgroundTint="@color/primary"
                             android:paddingHorizontal="24dp"
+                            android:paddingVertical="10dp"
                             android:text="Next"
                             app:cornerRadius="24dp" />
 
                     </LinearLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_flip_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:backgroundTint="@color/green"
+                        android:paddingHorizontal="24dp"
+                        android:paddingVertical="10dp"
+                        android:text="Flip"
+                        app:cornerRadius="24dp" />
+
 
                 </LinearLayout>
 
@@ -386,6 +391,7 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/quizBest"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/home_box2"
@@ -414,6 +420,7 @@
                             android:padding="12dp">
 
                             <TextView
+                                android:id="@+id/questions_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="10"
@@ -422,6 +429,7 @@
                                 android:textStyle="bold" />
 
                             <TextView
+
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Questions"
@@ -445,6 +453,7 @@
                             android:padding="12dp">
 
                             <TextView
+                                android:id="@+id/attempts"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="3"
@@ -476,6 +485,7 @@
                             android:padding="12dp">
 
                             <TextView
+                                android:id="@+id/bestPercentage"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="80%"
@@ -510,12 +520,20 @@
             </androidx.cardview.widget.CardView>
 
             <LinearLayout
-                android:id="@id/questions"
-                android:visibility="gone"
+                android:id="@+id/questions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+
                 android:padding="10dp">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_end_quiz"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary"
+                    android:text="Give Up"
+                    android:textSize="16sp"
+                    app:cornerRadius="12dp" />
 
                 <!-- Flashcard Header -->
                 <LinearLayout
@@ -537,12 +555,12 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/questions_count"
+                        android:id="@+id/questions_c"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="6dp"
-                        android:text="1 of 10"
+                        android:text="20 of 5"
                         android:textColor="@color/black"
                         android:textSize="12sp"
                         android:textStyle="bold" />
@@ -579,11 +597,11 @@
 
                 </androidx.cardview.widget.CardView>
                 <LinearLayout
-                    android:id="@+id/questions"
+                    android:id="@+id/answers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <include layout="@layout/mcq_questions"/>
+
                 </LinearLayout>
 
 
@@ -594,20 +612,9 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_prev_question"
-                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="16dp"
-                        android:paddingHorizontal="24dp"
-                        android:text="Previous"
-                        app:cornerRadius="24dp"
-                        android:textColor="@color/primary"
-                        app:strokeColor="@color/primary" />
-
 
                     <com.google.android.material.button.MaterialButton
+                        android:visibility="gone"
                         android:id="@+id/btn_next_question"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    card_view:cardCornerRadius="10dp"
+    card_view:cardElevation="2dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:weightSum="5"
+        android:background="@drawable/border_box"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center_vertical"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:background="@drawable/circle_primary"
+            android:id="@+id/assetTypeIcon"
+
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:tint="@color/white"
+            android:src="@drawable/book"
+            android:scaleType="centerInside"
+            android:layout_marginEnd="8dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="4.5"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginEnd="8dp">
+
+            <TextView
+                android:id="@+id/assetTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Biology Ch 5"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:ellipsize="end"
+                android:maxLines="1" />
+
+            <TextView
+                android:id="@+id/assetDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Flashcards from Biology Notes"
+                android:textSize="14sp"
+                android:textColor="@color/textcolor"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:layout_marginTop="2dp" />
+
+            <TextView
+                android:id="@+id/assetDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Apr 20, 2024"
+                android:textSize="12sp"
+                android:textColor="@android:color/darker_gray"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/deleteButton"
+            android:layout_weight="0.7"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:src="@drawable/delete"
+            android:scaleType="centerInside"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            app:tint="@color/primary"
+            android:contentDescription="Delete asset"/>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

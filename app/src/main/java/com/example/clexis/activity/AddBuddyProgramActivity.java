@@ -1,10 +1,12 @@
 package com.example.clexis.activity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +31,12 @@ public class AddBuddyProgramActivity extends AppCompatActivity {
             window.setNavigationBarColor(Color.WHITE);
             window.setStatusBarColor(ContextCompat.getColor(this, R.color.primary));
         }
+
+        Button generate = findViewById(R.id.generate);
+        generate.setOnClickListener(v->{
+            Intent intent = new Intent(this,GenerateActivity.class);
+            startActivity(intent);
+        });
     }
 
 

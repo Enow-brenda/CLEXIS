@@ -38,6 +38,8 @@
         <activity android:name=".activity.AuthActivity"/>
 <!--        <activity android:name=".activity.HomeActivity"/>-->
         <activity android:name=".activity.AIResourceDetailActivity"/>
+        <activity android:name=".activity.DownloadActivity"/>
+        <activity android:name=".activity.GenerateActivity"/>
         <activity android:name=".activity.AddResourceActivity"/>
         <activity android:name=".activity.ViewLearningPlanActivity"/>
         <activity android:name=".activity.ResourceDescriptionActivity"/>

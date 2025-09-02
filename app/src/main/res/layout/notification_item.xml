@@ -4,48 +4,125 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="6dp"
-    android:layout_marginHorizontal="12dp"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp"
-    app:cardUseCompatPadding="true">
+    android:layout_marginHorizontal="10dp"
+
+    app:cardUseCompatPadding="true"
+    app:cardBackgroundColor="@color/white">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-        <!-- Notification title -->
-        <TextView
-            android:id="@+id/text_notification_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="New Assignment Available"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#000000" />
+        <!-- Notification Icon -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="24dp"
+            app:cardBackgroundColor="@color/primary"
+            app:cardElevation="2dp">
 
-        <!-- Notification message -->
-        <TextView
-            android:id="@+id/text_notification_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="You have a new task in Module 3. Please check it before Friday."
-            android:textSize="14sp"
-            android:textColor="#555555"
-            android:layout_marginTop="4dp" />
+            <ImageView
+                android:id="@+id/notification_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/bell"
+                app:tint="@color/white" />
 
-        <!-- Time -->
-        <TextView
-            android:id="@+id/text_notification_time"
-            android:layout_width="match_parent"
+        </androidx.cardview.widget.CardView>
+
+        <!-- Content Section -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="2 hours ago"
-            android:textSize="12sp"
-            android:textColor="#888888"
-            android:layout_marginTop="6dp"
-            android:gravity="end" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Header with title and unread badge -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="4dp">
+
+                <TextView
+                    android:id="@+id/text_notification_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="New Assignment Available"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="2"
+                    android:ellipsize="end" />
+
+                <TextView
+                    android:id="@+id/unread"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="New"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/home_box2"
+                    android:textColor="@color/white"
+                    android:visibility="gone"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
+
+            <!-- Notification message -->
+            <TextView
+                android:id="@+id/text_notification_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="You have a new task in Module 3. Please check it before Friday."
+                android:textSize="14sp"
+                android:textColor="@color/textcolor"
+                android:lineSpacingExtra="2dp"
+                android:maxLines="3"
+                android:ellipsize="end"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Footer with time and priority indicator -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/text_notification_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="2 hours ago"
+                    android:textSize="12sp"
+                    android:textColor="@color/gray2"
+                    android:fontFamily="sans-serif" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
 
     </LinearLayout>
+
+    <!-- Read state indicator -->
+    <View
+        android:id="@+id/read_indicator"
+        android:layout_width="4dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/primary"
+        android:visibility="gone" />
+
 </androidx.cardview.widget.CardView>

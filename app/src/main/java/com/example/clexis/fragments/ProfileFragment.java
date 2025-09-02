@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.example.clexis.R;
 import com.example.clexis.activity.AIResourceDetailActivity;
 import com.example.clexis.activity.AchievementActivity;
+import com.example.clexis.activity.DownloadActivity;
 import com.example.clexis.activity.NotificationActivity;
 import com.example.clexis.activity.ScheduleActivity;
 import com.example.clexis.activity.ViewLearningPlanActivity;
@@ -29,6 +30,7 @@ public class ProfileFragment extends Fragment {
         View portfolio = view.findViewById(R.id.portfolio);
         View notification = view.findViewById(R.id.notification);
         View schedule = view.findViewById(R.id.schedule);
+        View download = view.findViewById(R.id.downloads);
         lpath.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), ViewLearningPlanActivity.class);
             startActivity(intent);
@@ -39,6 +41,10 @@ public class ProfileFragment extends Fragment {
         });
         notification.setOnClickListener(v -> {
                 Intent intent = new Intent(getContext(), NotificationActivity.class);
+            startActivity(intent);
+        });
+        download.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), DownloadActivity.class);
             startActivity(intent);
         });
         schedule.setOnClickListener(v -> {

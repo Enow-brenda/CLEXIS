@@ -4,13 +4,13 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
-    android:layout_marginBottom="10dp"
+    android:layout_marginTop="20dp"
     android:background="?android:attr/selectableItemBackground"
     android:gravity="center_vertical">
 
     <!-- Chat content -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
@@ -20,17 +20,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="4dp">
+            android:layout_marginBottom="4dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/profile_picture_card"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginRight="5dp"
-                app:cardCornerRadius="40dp"
-                >
+                app:cardCornerRadius="40dp">
 
                 <TextView
                     android:id="@+id/tv_profile_initials"
@@ -40,66 +40,78 @@
                     android:gravity="center"
                     android:text="MB"
                     android:textColor="@android:color/white"
-                    android:textSize="18sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
             </com.google.android.material.card.MaterialCardView>
 
-            <TextView
-                android:id="@+id/tv_chat_name"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Mac Brenda"
-                android:textSize="16sp"
-                android:textColor="#212121"
-                android:textStyle="bold"
-                android:maxLines="1"
-                android:ellipsize="end" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_timestamp"
+                <TextView
+                    android:id="@+id/tv_chat_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="Mac Brenda"
+                    android:textColor="#212121"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tv_last_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/tick"
+                    android:drawableTint="@color/textcolor"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:scrollHorizontally="false"
+                    android:singleLine="false"
+                    android:text=" Hey, did you understand the calculus problem from today's lesson?"
+                    android:textColor="#757575"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Last message and unread count -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2:30 PM"
-                android:textSize="12sp"
-                android:textColor="#757575"
-                android:layout_marginStart="8dp" />
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="2:30 PM "
+                    android:textColor="#757575"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_unread_count"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/circle_primary"
+                    android:gravity="center"
+                    android:text="3"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
 
         </LinearLayout>
 
-        <!-- Last message and unread count -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
-                android:id="@+id/tv_last_message"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Hey, did you understand the calculus problem from today's lesson?"
-                android:textSize="14sp"
-                android:textColor="#757575"
-                android:maxLines="2"
-                android:ellipsize="end" />
-
-            <!-- Unread count badge -->
-            <TextView
-                android:id="@+id/tv_unread_count"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:text="3"
-                android:textSize="12sp"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/circle_primary"
-                android:gravity="center"
-                android:layout_marginStart="8dp"
-               />
-
-        </LinearLayout>
 
     </LinearLayout>
 

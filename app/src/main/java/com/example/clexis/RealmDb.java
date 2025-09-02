@@ -2,6 +2,8 @@ package com.example.clexis;
 
 import android.app.Application;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -9,6 +11,8 @@ public class RealmDb extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        AndroidThreeTen.init(this);
 
         // on below line we are 
         // initializing our realm database.

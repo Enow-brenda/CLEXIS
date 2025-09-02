@@ -159,6 +159,7 @@ public class LearningPath extends RealmObject {
         task2.setTitle("Practice OOP");
         task2.setDescription("Work on classes and objects");
         task2.setModuleName("Java Basics");
+        task2.setCompleted(true);
         task2.setDate("23-08-2025");
 
 
@@ -197,7 +198,7 @@ public class LearningPath extends RealmObject {
         path.setName("Java Mastery");
         path.setDescription("A path to master core Java and OOP concepts");
         path.setGoalType(GoalType.SKill); // assuming GoalType is an enum
-        path.setFrequentTasks(List.of(weeklyTask,monthlyTask,dailyTask)); // mark task1 as frequent
+        path.setFrequentTasks(List.of(weeklyTask,monthlyTask)); // mark task1 as frequent
         path.setModules(List.of(module1));
         path.setStartDate("22-08-2025");
         path.setEndDate("22-09-2025");
