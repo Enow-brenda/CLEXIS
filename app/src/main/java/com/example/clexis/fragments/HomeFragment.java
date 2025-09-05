@@ -1,7 +1,13 @@
 package com.example.clexis.fragments;
 
+
+
+
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+
+import static org.dizitart.no2.filters.FluentFilter.where;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,6 +26,7 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.clexis.DatabaseManager;
 import com.example.clexis.R;
 import com.example.clexis.activity.AddLearningPathActivity;
 import com.example.clexis.activity.ViewLearningPlanActivity;
@@ -30,10 +37,16 @@ import com.example.clexis.models.dto.Module;
 import com.example.clexis.models.dto.Task;
 import com.example.clexis.models.entity.LearningPath;
 import com.example.clexis.models.response.ResponseDto;
+import com.example.clexis.repository.LearningPathRepository;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import androidx.annotation.NonNull;
 
+
+import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,9 +65,19 @@ public class HomeFragment extends Fragment {
     private LinearLayout emptyContainer,pathContainer,taskContainer,taskFragments;
     private ApiService api;
     private LearningPath path;
+
+    private  LearningPathRepository learningPathRepository ;
+
     public HomeFragment() {
         // Required empty public constructor
     }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        learningPathRepository = new LearningPathRepository(context);
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +88,7 @@ public class HomeFragment extends Fragment {
         progressDialog.setCancelable(false); // prevents the user from canceling
         progressDialog.show();
 
+
         emptyContainer = view.findViewById(R.id.emptyContainer);
         pathContainer = view.findViewById(R.id.lpath);
         taskContainer = view.findViewById(R.id.todayFocus);
@@ -72,7 +96,7 @@ public class HomeFragment extends Fragment {
         View noLpath = view.findViewById(R.id.noPath);
 
         ImageView icon = noLpath.findViewById(R.id.icon);
-        icon.setImageResource(R.drawable.pivot);
+        icon.setImageResource(R.drawable.task_icon);
         TextView heading = noLpath.findViewById(R.id.heading);
         heading.setText("No Active Learning Path");
         TextView description = noLpath.findViewById(R.id.description);
@@ -81,7 +105,9 @@ public class HomeFragment extends Fragment {
         btn.setText("Create a learning Path");
         btn.setVisibility(VISIBLE);
         btn.setOnClickListener(v->{
-            startActivity(new Intent(this.getContext(), AddLearningPathActivity.class));
+            Intent intent = new Intent(this.getContext(), AddLearningPathActivity.class);
+            intent.putExtra("action","create");
+            startActivity(intent);
         });
 
 
@@ -121,7 +147,7 @@ public class HomeFragment extends Fragment {
         greeting.setText("Hello, "+ name);
         TextView today = view.findViewById(R.id.date);
         Date todayD = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("EEEE, dd MMMM yyyy", Locale.getDefault());
+        SimpleDateFormat sdf = new SimpleDateFormat("EE, dd MMMM yyyy", Locale.getDefault());
         String date = sdf.format(todayD);
         today.setText(date);
 
@@ -130,7 +156,12 @@ public class HomeFragment extends Fragment {
 
         setUpPersonal();
         path = getLearningPath();
+        Gson gson = new Gson();
+        String json = gson.toJson(path); // path is your LearningPath object
+        Log.d("LearningPathJSON", json);
+
         if(path == null){
+            Log.d("NULL PATH", "setUpHomeFragment: ");
             emptyContainer.setVisibility(VISIBLE);
         }else{
 
@@ -166,9 +197,6 @@ public class HomeFragment extends Fragment {
             long pendingCount = todayTasks.stream()
                     .filter(task -> !task.isCompleted())
                     .count();
-            long completedCount = todayTasks.stream()
-                    .filter(Task::isCompleted)
-                    .count();
             TextView pending = taskContainer.findViewById(R.id.pending);
             String count = String.valueOf(pendingCount)+" Pending";
             pending.setText(count);
@@ -183,33 +211,7 @@ public class HomeFragment extends Fragment {
 
             }else{
                 emptyContainer.setVisibility(GONE);
-                if(todayTasks.size() == completedCount){
-                    SharedPreferences prefs = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-                    long lastUpdated = prefs.getLong("lastUpdated", 0);
-                    Calendar lastCal = Calendar.getInstance();
-                    lastCal.setTimeInMillis(lastUpdated);
 
-                    Calendar todayCal = Calendar.getInstance(); // now
-
-                    boolean isSameDay = lastCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR)
-                            && lastCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
-
-
-                    if(!isSameDay){
-
-                        int streak = prefs.getInt("streak", 0);
-                        TextView nstreak = view.findViewById(R.id.streak);
-                        nstreak.setText(String.valueOf(streak+1)+" Days Streak!");
-
-                        // Save something
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putInt("streak", streak+1);
-                        editor.putLong("lastUpdated",System.currentTimeMillis());
-                        editor.apply();
-                    }
-
-
-                }
             }
 
             for(Task task: todayTasks){
@@ -239,20 +241,21 @@ public class HomeFragment extends Fragment {
 
                 check.setOnCheckedChangeListener((buttonView, isChecked) -> {
                     if (isChecked) {
-                        // Mark task as completed
-                        task.setCompleted(true);
+                        // Mark task as completed for today
+                        task.markCompletedToday();
 
                         // Update UI
                         check.setVisibility(View.GONE);
                         doneIcon.setVisibility(View.VISIBLE);
 
-
-
-                        // Optionally persist the change (e.g., update Realm/SQLite/API)
+                        // Persist changes
                         saveLearningPath();
 
+                        // Update streak immediately
+                        updateStreakIfNeeded();
                     }
                 });
+
                 taskFragments.addView(taskBox);
 
             }
@@ -261,67 +264,52 @@ public class HomeFragment extends Fragment {
 
     public void saveLearningPath(){
         //hit the update endpoint then setup home fragment
+        learningPathRepository.update(path.getId(),path);
         setUpHomeFragment();
     }
-    public LearningPath getLearningPath(){
-        if(path!=null){
-            return path;
+
+    private void updateStreakIfNeeded() {
+        List<Task> todayTasks = getTodayTasks(path);
+
+        // Check if all tasks for today are completed
+        boolean allCompleted = todayTasks.stream().allMatch(Task::isCompletedToday);
+
+        Log.d("allCompleted", "All compelted: "+ allCompleted);
+
+        if (!allCompleted) return; // only increment streak when all tasks are done
+
+        SharedPreferences prefs = getContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        long lastUpdated = prefs.getLong("lastUpdated", 0);
+        Log.d("lastUpdated", "updateStreakIfNeeded: "+lastUpdated);
+        Calendar lastCal = Calendar.getInstance();
+        lastCal.setTimeInMillis(lastUpdated);
+
+        Calendar todayCal = Calendar.getInstance();
+
+        boolean isSameDay = lastCal.get(Calendar.YEAR) == todayCal.get(Calendar.YEAR)
+                && lastCal.get(Calendar.DAY_OF_YEAR) == todayCal.get(Calendar.DAY_OF_YEAR);
+
+        Log.d("Same Day", "same day: "+ isSameDay);
+        if (!isSameDay) {
+            int streak = prefs.getInt("streak", 0);
+            prefs.edit().putInt("streak", streak + 1)
+                    .putLong("lastUpdated", System.currentTimeMillis())
+                    .apply();
+
+            TextView nstreak = view.findViewById(R.id.streak);
+            nstreak.setText((streak + 1) + " Days Streak!");
         }
-        final LearningPath[] path = {getLocalLearningPath()};
-        Call<ResponseDto<LearningPath>> call = api.getLearningPath();
-        call.enqueue(new Callback<ResponseDto<LearningPath>>() {
-            @Override
-            public void onResponse(Call<ResponseDto<LearningPath>> call, Response<ResponseDto<LearningPath>> response) {
-                progressDialog.dismiss();
-                Log.d("API response", "Code: " + response.code() + ", Message: " + response.message());
-
-                if (response.isSuccessful() && response.body() != null) {
-                    ResponseDto<LearningPath> dto = response.body();
-                    if(dto.meta.statusCode == 200){
-                        //store token logic
-                        path[0] = dto.getData();
-
-                    }
-                }
-                else{
-                    String errorString = null;
-                    try {
-                        if (response.errorBody() != null) {
-                            errorString = response.errorBody().string();
-                            Log.d("API response", "Error String: " + errorString);
-
-                            // Parse the JSON string into ResponseDto
-                            Gson gson = new Gson();
-                            ResponseDto<Object> errorResponse = gson.fromJson(
-                                    errorString,
-                                    new TypeToken<ResponseDto<Object>>(){}.getType()
-                            );
-
-                            // Now you can access fields
-                            Log.d("API response", "Error message: " + errorResponse.getMeta().getMessage());
-                            Log.d("API response", "Error code: " + errorResponse.getMeta().getStatusCode());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseDto<LearningPath>> call, Throwable t) {
-                progressDialog.dismiss();
-                Log.d("API response", "Failed to reach the server " + t.getMessage());
-            }
-
-        });
-        return path[0];
 
     }
-    public LearningPath getLocalLearningPath(){
-        path = new LearningPath();
-        return path.getDefault();
+
+
+    public LearningPath getLearningPath(){
+        path = getLocalLearningPath();
+        return path;
+
+    }
+    public LearningPath getLocalLearningPath() {
+        return learningPathRepository.getActive();
     }
 
     public List<Task> getTodayTasks(LearningPath path){
@@ -388,6 +376,9 @@ public class HomeFragment extends Fragment {
 
             return todayTasks;
         }
+
+
+
 
 }
 

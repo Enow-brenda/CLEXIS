@@ -3,11 +3,7 @@ package com.example.clexis.models.entity;
 
 import com.example.clexis.models.enums.ResourceType;
 
-import java.time.LocalDateTime;
-
-import io.realm.RealmObject;
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +11,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class Resource extends RealmObject {
+public class Resource  {
 
 
     private String id;
     private String name;
     private String description;
     private ResourceType type;
+    private String category;
     private boolean verified;
     private boolean rejected ;
     private String reasonForRejection;

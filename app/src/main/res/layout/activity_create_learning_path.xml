@@ -293,32 +293,49 @@
                     android:padding="20dp">
 
                     <!-- Section Header -->
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/books"
-                            app:tint="@color/primary"
-                            android:layout_marginEnd="8dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Modules"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primary" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/books"
+                                app:tint="@color/primary"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Modules"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                android:textColor="@color/primary" />
 
 
-                    </LinearLayout>
+                        </LinearLayout>
+                        <ImageButton
+                            android:layout_alignParentEnd="true"
+                        android:id="@+id/addModule"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/add_icon"
+                        app:tint="@color/primary"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:contentDescription="My Button"
+                        android:scaleType="centerInside"
+                        android:layout_margin="4dp"/>
+
+                    </RelativeLayout>
+
 
                     <!-- Empty State for Modules -->
                     <include layout="@layout/empty_state" android:id="@+id/modulesEmpty"/>
@@ -354,42 +371,53 @@
                     android:padding="20dp">
 
                     <!-- Section Header -->
-                    <LinearLayout
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/loop"
-                            app:tint="@color/primary"
-                            android:layout_marginEnd="8dp" />
-
-                        <TextView
-                            android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Frequent Tasks"
-                            android:textStyle="bold"
-                            android:textSize="16sp"
-                            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                            android:textColor="@color/primary" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="16dp">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/loop"
+                                app:tint="@color/primary"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Frequent Tasks"
+                                android:textStyle="bold"
+                                android:textSize="16sp"
+                                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                                android:textColor="@color/primary" />
 
 
 
-                    </LinearLayout>
+                        </LinearLayout>
+                        <ImageButton
+                            android:layout_alignParentEnd="true"
+                            android:id="@+id/addFrequent"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/add_icon"
+                            app:tint="@color/primary"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:contentDescription="My Button"
+                            android:scaleType="centerInside"
+                            android:layout_margin="4dp"/>
+
+                    </RelativeLayout>
+
 
                     <!-- Helper Text -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Add recurring activities like daily reading, practice sessions, or weekly reviews"
-                        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                        android:textColor="@color/textcolor"
-                        android:layout_marginBottom="16dp" />
+
 
                     <include layout="@layout/empty_state" android:id="@+id/fTaskEmpty"/>
 

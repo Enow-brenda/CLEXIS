@@ -36,6 +36,7 @@ import com.example.clexis.models.dto.Module;
 import com.example.clexis.models.dto.Task;
 import com.example.clexis.models.entity.LearningPath;
 import com.example.clexis.models.response.ResponseDto;
+import com.example.clexis.repository.LearningPathRepository;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.gson.Gson;
@@ -61,11 +62,14 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private ApiService api;
 
+    private LearningPathRepository learningPathRepository;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_learning_plan);
+        learningPathRepository = new LearningPathRepository(this);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -102,7 +106,7 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
     }
 
     private void setupActivity() {
-        path = getLearningPath();
+        path = getLocalLearningPath();
         if (path == null) {
             Intent newIntent = new Intent(this, AddLearningPathActivity.class);
             newIntent.putExtra("action","create");
@@ -302,10 +306,10 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
 
                     if (task.isFrequentTask()) {
                         moduleName.setText("Frequent Task");
-                        icon.setImageResource(R.drawable.loop);
+//                        icon.setImageResource(R.drawable.loop);
                     } else {
                         moduleName.setText(task.getModuleName());
-                        icon.setImageResource(R.drawable.task_icon);
+//                        icon.setImageResource(R.drawable.task_icon);
                     }
 
                     ((ViewGroup) focusContainer).addView(taskBox);
@@ -322,59 +326,12 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
         progressDialog.setCancelable(false); // prevents the user from canceling
         progressDialog.show();
         deleteLocal();
-        Call<ResponseDto<Object>> call = api.deleteLearningPath(); //if no parameter delete active
-        call.enqueue(new Callback<ResponseDto<Object>>() {
-            @Override
-            public void onResponse(Call<ResponseDto<Object>> call, Response<ResponseDto<Object>> response) {
-                progressDialog.dismiss();
-                Log.d("API response", "Code: " + response.code() + ", Message: " + response.message());
-
-                if (response.isSuccessful() && response.body() != null) {
-                    ResponseDto<Object> dto = response.body();
-                    if(dto.meta.statusCode == 200){
-                        //store token logic
-
-
-                    }
-                }
-                else{
-                    String errorString = null;
-                    try {
-                        if (response.errorBody() != null) {
-                            errorString = response.errorBody().string();
-                            Log.d("API response", "Error String: " + errorString);
-
-                            // Parse the JSON string into ResponseDto
-                            Gson gson = new Gson();
-                            ResponseDto<Object> errorResponse = gson.fromJson(
-                                    errorString,
-                                    new TypeToken<ResponseDto<Object>>(){}.getType()
-                            );
-
-                            // Now you can access fields
-                            Log.d("API response", "Error message: " + errorResponse.getMeta().getMessage());
-                            Log.d("API response", "Error code: " + errorResponse.getMeta().getStatusCode());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseDto<Object>> call, Throwable t) {
-                Log.d("API response", "Failed to reach the server " + t.getMessage());
-            }
-
-        });
-
+        progressDialog.dismiss();
 
     }
 
     private void deleteLocal() {
-        Log.d("DeLETE", "deleteLocal: ");
+        learningPathRepository.delete(path.getId());
     }
 
     private String getFrequency(Task task) {
@@ -406,67 +363,10 @@ public class ViewLearningPlanActivity extends AppCompatActivity {
         }
     }
 
-    public LearningPath getLearningPath(){
 
-        final LearningPath[] path = {getLocalLearningPath()};
-        if(path[0] ==null){
-            return null;
-        }
-        Call<ResponseDto<LearningPath>> call = api.getLearningPath();
-        call.enqueue(new Callback<ResponseDto<LearningPath>>() {
-            @Override
-            public void onResponse(Call<ResponseDto<LearningPath>> call, Response<ResponseDto<LearningPath>> response) {
-
-                Log.d("API response", "Code: " + response.code() + ", Message: " + response.message());
-
-                if (response.isSuccessful() && response.body() != null) {
-                    ResponseDto<LearningPath> dto = response.body();
-                    if(dto.meta.statusCode == 200){
-                        //store token logic
-                        path[0] = dto.getData();
-
-                    }
-                }
-                else{
-                    String errorString = null;
-                    try {
-                        if (response.errorBody() != null) {
-                            errorString = response.errorBody().string();
-                            Log.d("API response", "Error String: " + errorString);
-
-                            // Parse the JSON string into ResponseDto
-                            Gson gson = new Gson();
-                            ResponseDto<Object> errorResponse = gson.fromJson(
-                                    errorString,
-                                    new TypeToken<ResponseDto<Object>>(){}.getType()
-                            );
-
-                            // Now you can access fields
-                            Log.d("API response", "Error message: " + errorResponse.getMeta().getMessage());
-                            Log.d("API response", "Error code: " + errorResponse.getMeta().getStatusCode());
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseDto<LearningPath>> call, Throwable t) {
-
-                Log.d("API response", "Failed to reach the server " + t.getMessage());
-            }
-
-        });
-        return path[0];
-
-    }
 
     public LearningPath getLocalLearningPath(){
-        path = new LearningPath();
-        return path.getDefault();
+        return learningPathRepository.getActive();
     }
 
     public List<Task> getTodayTasks(LearningPath path){

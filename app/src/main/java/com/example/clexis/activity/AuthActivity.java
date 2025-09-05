@@ -247,6 +247,7 @@ public class AuthActivity extends AppCompatActivity {
 
                 }
 
+
             }
 
             @Override

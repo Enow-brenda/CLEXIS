@@ -1,14 +1,11 @@
 package com.example.clexis.models.entity;
 
 
-
 import com.example.clexis.models.application.Review;
 import com.example.clexis.models.enums.DiscussionType;
 
 import java.util.List;
-import java.util.UUID;
 
-import io.realm.RealmObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 
-public class Discussion extends RealmObject {
+public class Discussion {
 
     private String id ;
     private String discussionTitle;

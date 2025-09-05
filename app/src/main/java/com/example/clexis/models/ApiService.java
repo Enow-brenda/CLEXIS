@@ -10,6 +10,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+import com.example.clexis.models.dto.ChangePasswordRequest;
 import com.example.clexis.models.dto.CommunityStats;
 import com.example.clexis.models.dto.LearningPathDto;
 import com.example.clexis.models.dto.StudentProfileObject;
@@ -19,6 +20,7 @@ import com.example.clexis.models.entity.LearningPath;
 import com.example.clexis.models.entity.Notification;
 import com.example.clexis.models.entity.Resource;
 import com.example.clexis.models.entity.Student;
+import com.example.clexis.models.entity.User;
 import com.example.clexis.models.request.LoginRequest;
 import com.example.clexis.models.request.RegisterRequest;
 import com.example.clexis.models.response.LoginResponse;
@@ -34,7 +36,7 @@ public interface ApiService {
 
     @GET("/api/v1/gateway/student/students/getInfo/{userId}")
     @Headers("Content-Type: application/json")
-    Call<ResponseDto<Object>> getUser(@Path("userId") String userId);
+    Call<ResponseDto<User>> getUser(@Path("userId") String userId);
 
 
     @GET("/api/v1/gateway/student/learningPath/get")
@@ -103,4 +105,13 @@ public interface ApiService {
     Call<ResponseDto<Object>> deleteLearningPath();
     @GET("/api/v1/gateway/student/notification/get")
     Call<ResponseDto<List<Notification>>> getNotifications();
+
+    @POST("/api/v1/gateway/student/changePassword")
+    Call<ResponseDto<Student>> changePassword(ChangePasswordRequest request);
+
+    @PUT("/api/v1/gateway/student/updateInfo")
+    Call<ResponseDto<Student>> updateStudent(Student student);
+
+    @PUT("/api/v1/gateway/student/user/updateInfo")
+    Call<ResponseDto<User>> updateUser(User user);
 }

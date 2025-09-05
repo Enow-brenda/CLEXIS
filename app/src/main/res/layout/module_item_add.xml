@@ -1,0 +1,39 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/moduleItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:background="@drawable/border_box"
+    android:layout_marginBottom="10dp">
+
+    <TextView
+        android:id="@+id/moduleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Module Name"
+        android:textStyle="bold"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/moduleObjective"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Module Objective"
+        android:textSize="14sp"
+        android:layout_marginBottom="8dp"/>
+
+    <!-- Tasks container -->
+    <LinearLayout
+        android:id="@+id/moduleTasks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/addTaskBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Task"/>
+</LinearLayout>

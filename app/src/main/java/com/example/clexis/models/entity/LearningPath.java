@@ -5,31 +5,35 @@ import com.example.clexis.models.dto.Module;
 import com.example.clexis.models.dto.Task;
 import com.example.clexis.models.enums.GoalType;
 
+import org.dizitart.no2.repository.annotations.Entity;
+import org.dizitart.no2.repository.annotations.Id;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import io.realm.RealmObject;
 import lombok.Data;
 import lombok.Getter;
 
 @Data
-public class LearningPath extends RealmObject {
+@Entity
+public class LearningPath {
 
+    @Id
     private String id;
     private String name;
     private String description;
     private GoalType goalType;
+
     private List<Task> frequentTasks;
     private List<Module> modules;
     private String endDate;
+
     @Getter
     private String startDate;
     private boolean active = true;

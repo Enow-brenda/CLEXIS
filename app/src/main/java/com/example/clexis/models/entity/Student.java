@@ -29,5 +29,21 @@ public class Student {
     private int communityPoints;
     private String dateCreated;
 
+    public static Student defaultStudent() {
+        Student student = new Student();
+        student.id = "STU12345";
+        student.userId = "USR67890";
+        student.fullName = "John Doe";
+        student.academicLevel = AcademicLevel.UNDERGRADUATE; // example enum
+        student.bioOrInterest = "Passionate about AI, programming, and open source.";
+        student.phoneNumber = "+237650000000";
+        student.profession = "Software Developer";
+        student.language = "English";
+        student.points = 100;
+        student.resourcePoints = 50;
+        student.communityPoints = 30;
+        student.dateCreated = "2025-09-02T10:00:00Z";
+        return student;
+    }
 
 }

@@ -262,6 +262,7 @@ public class AddResourceActivity extends AppCompatActivity {
                     }
 
                 }
+
             }
 
             @Override

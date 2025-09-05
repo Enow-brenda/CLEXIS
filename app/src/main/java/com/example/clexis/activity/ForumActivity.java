@@ -260,6 +260,7 @@ public class ForumActivity extends AppCompatActivity {
                     }
 
                 }
+
             }
 
             @Override
@@ -560,6 +561,7 @@ public class ForumActivity extends AppCompatActivity {
                     }
 
                 }
+
 
             }
 

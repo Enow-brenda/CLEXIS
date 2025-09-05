@@ -11,7 +11,6 @@ import org.threeten.bp.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import io.realm.RealmObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class LearningAssets extends RealmObject {
+public class LearningAssets {
 
     private String id;
     private String title;

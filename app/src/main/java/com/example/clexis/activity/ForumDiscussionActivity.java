@@ -235,6 +235,7 @@ public class ForumDiscussionActivity extends AppCompatActivity {
                     }
 
                 }
+
             }
 
             @Override

@@ -422,6 +422,7 @@ public class AIResourceDetailActivity extends AppCompatActivity {
 
         closeBtn.setOnClickListener(v -> {
             setupQuizSection();
+            activeQuiz = false;
             dialog.dismiss();
         });
 

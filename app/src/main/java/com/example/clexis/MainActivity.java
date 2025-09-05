@@ -44,42 +44,43 @@ public class MainActivity extends AppCompatActivity {
         } else {
             // Show Landing Page
             setContentView(R.layout.activity_main);
+            ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(0,systemBars.top,0,systemBars.bottom);
+                return insets;
+            });
+            LottieAnimationView animationView = findViewById(R.id.lottieAnimationView);
+
+
+            animationView.setAnimation(R.raw.landing); // From raw folder
+
+            animationView.setSpeed(1.0f);
+            animationView.setRepeatCount(LottieDrawable.INFINITE); // For continuous looping
+
+            animationView.playAnimation();
+
+            Button auth = findViewById(R.id.startBtn);
+            auth.setOnClickListener(v->{
+                Intent authIntent = new Intent(this, AuthActivity.class);
+                startActivity(authIntent);
+            });
+
+            languageToggle = findViewById(R.id.language_toggle);
+            flagImage = languageToggle.findViewById(R.id.lang_flag);
+
+
+            // Display current language
+            setLanguageUI(getSavedLangCode());
+
+            // Handle click
+            languageToggle.setOnClickListener(v -> {
+                Log.d("LandingActivity", "Language switcher clicked!");
+                Toast.makeText(this, "Clicked!", Toast.LENGTH_SHORT).show();
+                showLanguageDialog();
+            });
+
         }
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(0,systemBars.top,0,systemBars.bottom);
-            return insets;
-        });
-        LottieAnimationView animationView = findViewById(R.id.lottieAnimationView);
-
-
-        animationView.setAnimation(R.raw.landing); // From raw folder
-
-        animationView.setSpeed(1.0f);
-        animationView.setRepeatCount(LottieDrawable.INFINITE); // For continuous looping
-
-        animationView.playAnimation();
-
-        Button auth = findViewById(R.id.startBtn);
-        auth.setOnClickListener(v->{
-            Intent authIntent = new Intent(this, AuthActivity.class);
-            startActivity(authIntent);
-        });
-
-        languageToggle = findViewById(R.id.language_toggle);
-        flagImage = languageToggle.findViewById(R.id.lang_flag);
-
-
-        // Display current language
-        setLanguageUI(getSavedLangCode());
-
-        // Handle click
-        languageToggle.setOnClickListener(v -> {
-            Log.d("LandingActivity", "Language switcher clicked!");
-            Toast.makeText(this, "Clicked!", Toast.LENGTH_SHORT).show();
-            showLanguageDialog();
-        });
 
 
     }

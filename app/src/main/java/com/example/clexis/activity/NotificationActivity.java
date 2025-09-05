@@ -280,6 +280,7 @@ public class NotificationActivity extends AppCompatActivity {
 
                 }
 
+
             }
 
             @Override

@@ -3,6 +3,7 @@ package com.example.clexis.models;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Utils {
@@ -19,6 +20,10 @@ public class Utils {
             return initials.toUpperCase().substring(0,2);
         }
         return initials.toUpperCase();
+    }
+
+    public void sendNotifcation(String message, List<String> userIds){
+
     }
     public int getDayStatus(String start,String end){
         Date today = new Date();

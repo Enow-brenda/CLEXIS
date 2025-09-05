@@ -7,7 +7,6 @@ import com.example.clexis.models.dto.JoinRequest;
 
 import java.util.List;
 
-import io.realm.RealmObject;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class BuddyProgram extends RealmObject {
+public class BuddyProgram {
 
     private String id ;
     private String title;

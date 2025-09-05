@@ -320,6 +320,7 @@ public class SubmissionDetailActivity extends AppCompatActivity {
 
                 }
 
+
             }
 
             @Override
@@ -376,6 +377,7 @@ public class SubmissionDetailActivity extends AppCompatActivity {
                     }
 
                 }
+
 
             }
 

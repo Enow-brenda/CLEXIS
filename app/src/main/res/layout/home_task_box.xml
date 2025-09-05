@@ -35,8 +35,9 @@
                     android:id="@+id/icon"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    app:tint="@color/primary_light"
-                    android:src="@drawable/book" />
+                    android:tint="@color/primary_light"
+                    android:src="@drawable/task_icon"
+                    />
 
                 <TextView
                     android:id="@+id/moduleName"

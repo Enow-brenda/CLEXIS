@@ -217,6 +217,7 @@ public class BuddyProgramListActivity extends AppCompatActivity {
 
                 }
 
+
             }
 
             @Override

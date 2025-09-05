@@ -3,9 +3,15 @@ package com.example.clexis.models.dto;
 import java.util.List;
 import java.util.UUID;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 // Module.java
 public class Module {
 
+    @Setter
+    @Getter
     private String id ;
     private String moduleName;
     private String objective;

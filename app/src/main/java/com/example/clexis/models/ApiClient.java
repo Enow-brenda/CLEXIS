@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
+import android.util.Log;
 
 import com.example.clexis.SessionManager;
 import com.example.clexis.activity.AuthActivity;
@@ -20,7 +22,7 @@ import java.io.IOException;
 public class ApiClient {
 
 //    private static final String BASE_URL = "https://clexis-gateway.up.railway.app/";
-    private static final String BASE_URL = "http://192.168.208.190:8000/";
+    private static final String BASE_URL = "http://192.168.29.190:8000/";
     private static Retrofit retrofit;
 
     public static Retrofit getRetrofitInstance(Context context) {
@@ -30,6 +32,7 @@ public class ApiClient {
                     .addInterceptor(chain -> {
                         SessionManager sessionManager = new SessionManager(context);
                         String token = sessionManager.getToken();
+                        Log.d("TOKEN", "gotten token: "+ token);
 
                         Request original = chain.request();
                         Request.Builder builder = original.newBuilder();
@@ -47,7 +50,7 @@ public class ApiClient {
 
                             // Redirect to login (must run on UI thread)
                             // Use Handler to post on main thread
-                            new android.os.Handler(context.getMainLooper()).post(() -> {
+                            new Handler(context.getMainLooper()).post(() -> {
                                 AlertDialog.Builder builder2 = new AlertDialog.Builder(context);
                                 builder2.setTitle("Session Expired");
                                 builder2.setMessage("Your session has expired. Please log in again.");

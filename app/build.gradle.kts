@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+
 }
 
 
@@ -57,6 +58,7 @@ dependencies {
     annotationProcessor ("org.projectlombok:lombok:1.18.32")
 
     implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
+    implementation ("org.dizitart:nitrite:4.3.0")
 
 
     implementation ("com.github.bumptech.glide:glide:4.16.0")

@@ -1,6 +1,11 @@
 package com.example.clexis.models.dto;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.UUID;
 
 public class Task {
@@ -17,6 +22,25 @@ public class Task {
     private boolean monthly = false;
     private int frequency;
     private List<Integer> scheduledDays;
+
+    public void setId(String id){
+        this.id = id;
+    }
+
+    public boolean isCompletedToday() {
+        String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        if (isDaily() || isWeekly() || isMonthly() || isFrequentTask()) {
+            return completedByDate.getOrDefault(today, false);
+        } else {
+            return completed; // for one-time tasks
+        }
+    }
+    private Map<String, Boolean> completedByDate = new HashMap<>();
+    public void markCompletedToday() {
+        String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        completedByDate.put(today, true);
+        this.completed = true; // keep for one-time tasks
+    }
 
     // ----- Getters -----
     public String getId() {

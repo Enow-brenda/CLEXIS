@@ -89,6 +89,7 @@
 
             <!-- Section 1: Featured Resources -->
             <TextView
+                android:id="@+id/FHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Featured Resources"
@@ -110,6 +111,7 @@
 
             <!-- Section 2: Community Uploads -->
             <TextView
+                android:id="@+id/CHeading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
