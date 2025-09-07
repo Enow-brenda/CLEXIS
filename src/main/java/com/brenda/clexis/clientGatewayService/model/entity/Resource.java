@@ -24,6 +24,7 @@ public class Resource {
     private String description;
     private ResourceType type;
     private boolean verified;
+    private String category;
     private boolean rejected =false;
     private String reasonForRejection;
     private boolean free;
@@ -32,5 +33,7 @@ public class Resource {
     private String fileUrl;
     private String imageUrl;
     private String userId;
-    private LocalDateTime creationDate = LocalDateTime.now();
+    private String username;
+    private String creationDate;
+
 }

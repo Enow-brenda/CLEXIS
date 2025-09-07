@@ -16,7 +16,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .servers(List.of(new Server().url("https://clexis-gateway.up.railway.app")))
+//                .servers(List.of(new Server().url("https://clexis-gateway.up.railway.app")))
                 .components(new Components()
                         .addSecuritySchemes("bearer-jwt",
                                 new SecurityScheme().type(SecurityScheme.Type.HTTP).scheme("bearer").bearerFormat("JWT")))

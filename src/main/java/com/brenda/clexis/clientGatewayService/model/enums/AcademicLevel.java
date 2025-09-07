@@ -2,34 +2,27 @@ package com.brenda.clexis.clientGatewayService.model.enums;
 
 
 public enum AcademicLevel {
-    HIGHSCHOOL(1, "High School"),
-    UNDERGRADUATE(2, "Undergraduate"),
-    GRADUATE(3, "Graduate"),
-    OTHER(99, "Other");
-
-    private final int code;
-    private final String label;
-
-    AcademicLevel(int code, String label) {
-        this.code = code;
-        this.label = label;
-    }
+    HIGHSCHOOL,
+    UNDERGRADUATE,
+    GRADUATE,
+    OTHER;
 
     public int getCode() {
-        return code;
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public static AcademicLevel fromCode(int code) {
-        for (AcademicLevel level : values()) {
-            if (level.code == code) {
-                return level;
-            }
+        switch (this) {
+            case HIGHSCHOOL:
+                return 0;
+            case UNDERGRADUATE:
+                return 1;
+            case GRADUATE:
+                return 2;
+            case OTHER:
+                return 3;
         }
-        return OTHER;
+        return 0;
+
     }
+
+
+
 }
 

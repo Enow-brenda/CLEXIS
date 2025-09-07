@@ -50,6 +50,7 @@ public class AuthServiceImp implements AuthService {
             var refreshToken=jwtUtils.generateRefreshToken(new HashMap<>(),user);
             var res = AuthenticationResponse.builder()
                     .token(jwt)
+                    .userId(user.getId())
                     .username(user.getUsername())
                     .email(user.getEmail())
                     .role(user.getRole())
@@ -115,8 +116,19 @@ public class AuthServiceImp implements AuthService {
         if(initialUser!=null){
             return MainResponse.responseAlreadyExist("Student with Email already exist");
         }
+        String fullName = studentDto.getFullName();
+        String[] parts = fullName.trim().split("\\s+"); // split by spaces
+        String lastName = parts[parts.length - 1]; // "Doe"
+
+        String initials = "";
+        for (int i = 0; i < parts.length - 1; i++) {
+            initials += parts[i].charAt(0); // "JM"
+        }
+
+        String username = (initials + lastName).toLowerCase();
+
         User user = User.builder()
-                .username(studentDto.getEmail())
+                .username(username)
                 .password(passwordEncoder.encode(studentDto.getPassword()))
                 .email(studentDto.getEmail())
                 .role("STUDENT")

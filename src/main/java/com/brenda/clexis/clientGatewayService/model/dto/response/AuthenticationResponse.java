@@ -8,6 +8,7 @@ import java.util.Date;
 @Data
 @Builder
 public class AuthenticationResponse {
+    private String userId;
     private String username;
     private String email;
     private String token;

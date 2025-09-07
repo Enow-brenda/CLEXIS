@@ -1,5 +1,8 @@
 package com.brenda.clexis.clientGatewayService.service.implementations;
 
+
+
+
 import com.brenda.clexis.clientGatewayService.interfaces.interfaces.AiInterface;
 import com.brenda.clexis.clientGatewayService.interfaces.interfaces.NotificationInterface;
 import com.brenda.clexis.clientGatewayService.model.dto.NotificationRequest;
@@ -107,6 +110,7 @@ public class StudentServiceImpl implements StudentService {
             return MainResponse.responseError(e.getMessage());
         }
     }
+
 
 
 

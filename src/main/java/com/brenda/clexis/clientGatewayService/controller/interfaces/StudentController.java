@@ -13,7 +13,7 @@ public interface StudentController {
     @PostMapping("notify")
     ResponseEntity<ResponseDto> notifyStudent(@RequestBody NotificationRequest notificationRequest);
     //get the student info using userId
-    @PostMapping("getInfo/{userId}")
+    @GetMapping("getInfo/{userId}")
     ResponseEntity<ResponseDto> getStudentInfo(@PathVariable String userId);
 
     @PutMapping("info/update")

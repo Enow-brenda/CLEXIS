@@ -28,7 +28,7 @@ public class JWTUtils {
     private final StudentRepository studentRepository;
     private final UserRepository userRepository;
     private SecretKey key;
-    private static final int EXPIRATION_TIME = 60 * 60 * 2 * 1000;
+    private static final int EXPIRATION_TIME = 60 * 60 * 30 * 1000;
 
     public JWTUtils (StudentRepository studentRepository, UserRepository userRepository){
         String secretString = "38974988567frhhHD4U577837T8YF8309844YY42HU3H65354huh58875gfy";
@@ -69,6 +69,7 @@ public class JWTUtils {
                 .compact();
     }
     public String extractUsername(String token) {
+        System.out.println(extractClaims(token, Claims::getSubject));
         return extractClaims(token, Claims::getSubject);
     }
 
