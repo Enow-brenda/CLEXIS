@@ -24,7 +24,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @Service
@@ -137,6 +140,10 @@ public class AuthServiceImp implements AuthService {
                 .role("STUDENT")
                 .build();
         var newUser = ourUserRepository.save(user);
+        Date now = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+
+        String formattedDate = sdf.format(now);
        Student newStudent= Student.builder()
                .userId(newUser.getId())
                .academicLevel(studentDto.getAcademicLevel())
@@ -145,6 +152,7 @@ public class AuthServiceImp implements AuthService {
                .phoneNumber(studentDto.getPhone())
                .language(studentDto.getLanguage())
                .profession(studentDto.getProfession())
+               .dateCreated(formattedDate)
                .build();
         studentProfileService.createProfile(user.getId(), newStudent.getAcademicLevel().getCode(), newStudent.getProfession(), newStudent.getLanguage(), newStudent.getBioOrInterest());
         // notify
