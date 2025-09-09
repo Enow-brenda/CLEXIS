@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BuddyScore {
     private String userId;
+    private String username;
     private int score;
 }

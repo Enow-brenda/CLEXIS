@@ -18,6 +18,4 @@ public interface AuthController {
     @PostMapping("student/register")
     ResponseEntity<ResponseDto> registerStudent(@RequestBody StudentDto studentDto);
 
-    @PostMapping("changePassword")
-    ResponseEntity<ResponseDto> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest);
 }

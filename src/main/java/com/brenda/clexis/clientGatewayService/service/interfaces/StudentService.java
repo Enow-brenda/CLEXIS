@@ -16,4 +16,6 @@ public interface StudentService {
     ResponseEntity<ResponseDto> findMatches();
 
     ResponseEntity<ResponseDto> getNotifications();
+
+    ResponseEntity<ResponseDto> getStudentProfile(String userId);
 }

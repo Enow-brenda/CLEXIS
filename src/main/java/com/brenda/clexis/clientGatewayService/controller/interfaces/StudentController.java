@@ -1,6 +1,7 @@
 package com.brenda.clexis.clientGatewayService.controller.interfaces;
 
 import com.brenda.clexis.clientGatewayService.model.dto.NotificationRequest;
+import com.brenda.clexis.clientGatewayService.model.dto.request.ChangePasswordRequest;
 import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import com.brenda.clexis.clientGatewayService.model.entity.Student;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public interface StudentController {
     @GetMapping("getInfo/{userId}")
     ResponseEntity<ResponseDto> getStudentInfo(@PathVariable String userId);
 
+    @GetMapping("profile/get/{userId}")
+    ResponseEntity<ResponseDto> getStudentProfile(@PathVariable String userId);
+
     @PutMapping("info/update")
     ResponseEntity<ResponseDto> updateStudentInfo(@RequestBody Student student);
 
@@ -25,6 +29,10 @@ public interface StudentController {
 
     @GetMapping("notifications")
     ResponseEntity<ResponseDto> getStudentNotifications();
+
+
+    @PostMapping("changePassword")
+    ResponseEntity<ResponseDto> changePassword(@RequestBody ChangePasswordRequest changePasswordRequest);
 
 
 }

@@ -14,6 +14,7 @@ import com.brenda.clexis.clientGatewayService.repository.RoleRepository;
 import com.brenda.clexis.clientGatewayService.repository.StudentRepository;
 import com.brenda.clexis.clientGatewayService.repository.UserRepository;
 import com.brenda.clexis.clientGatewayService.service.interfaces.AuthService;
+import com.brenda.clexis.clientGatewayService.service.interfaces.LearningPathService;
 import com.brenda.clexis.clientGatewayService.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +37,7 @@ public class AuthServiceImp implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final StudentRepository studentRepository;
     private final StudentProfileService studentProfileService;
+    private final LearningPathService learningPathService;
 
     @Override
     public ResponseEntity<ResponseDto> login(LoginRequest loginRequest) {
@@ -99,12 +101,13 @@ public class AuthServiceImp implements AuthService {
 
     @Override
     public ResponseEntity<ResponseDto> changePassword(ChangePasswordRequest changePasswordRequest) {
-        var user =  ourUserRepository.findUserByUsername(changePasswordRequest.getUsername());
+        String id  = jwtUtils.extractUserId(learningPathService.getToken());
+        var user =  ourUserRepository.findUserById(id);
         if(user!=null){
             if(passwordEncoder.matches(changePasswordRequest.getOldPassword(),user.getPassword())){
                 user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
                 ourUserRepository.save(user);
-                return MainResponse.responseOk(user);
+                return MainResponse.responseOk(null,"password changed successfully");
             }
         }
         return MainResponse.responseBadCredentials("Unable to change password");

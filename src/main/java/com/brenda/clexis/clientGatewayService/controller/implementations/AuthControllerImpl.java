@@ -31,10 +31,5 @@ public class AuthControllerImpl implements AuthController {
     }
 
 
-    @Override
-    public ResponseEntity<ResponseDto> changePassword(ChangePasswordRequest changePasswordRequest) {
-        log.info("change password request : {} ...", changePasswordRequest);
-        return authService.changePassword(changePasswordRequest);
 
-    }
 }

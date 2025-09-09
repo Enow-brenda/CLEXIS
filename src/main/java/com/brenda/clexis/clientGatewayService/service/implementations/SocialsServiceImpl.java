@@ -7,8 +7,10 @@ import com.brenda.clexis.clientGatewayService.model.dto.response.MainResponse;
 import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import com.brenda.clexis.clientGatewayService.model.entity.BuddyProgram;
 import com.brenda.clexis.clientGatewayService.model.entity.Discussion;
+import com.brenda.clexis.clientGatewayService.model.entity.Student;
 import com.brenda.clexis.clientGatewayService.repository.BuddyProgramRepository;
 import com.brenda.clexis.clientGatewayService.repository.DiscussionRepository;
+import com.brenda.clexis.clientGatewayService.repository.StudentRepository;
 import com.brenda.clexis.clientGatewayService.service.interfaces.LearningPathService;
 import com.brenda.clexis.clientGatewayService.service.interfaces.SocialService;
 import com.brenda.clexis.clientGatewayService.utils.JWTUtils;
@@ -29,6 +31,7 @@ public class SocialsServiceImpl implements SocialService {
     private final DiscussionRepository discussionRepository;
     private final BuddyProgramRepository buddyProgramRepository;
     private final StudentProfileService studentProfileService;
+    private final StudentRepository studentRepository;
 
     @Override
     public ResponseEntity<ResponseDto> addDiscussion(DiscussionDto discussionDto) {
@@ -115,6 +118,9 @@ public class SocialsServiceImpl implements SocialService {
         try{
             String userId = jWTUtils.extractUserId(learningPathService.getToken());
             buddyProgram.setAuthorId(userId);
+            Student student = studentRepository.findStudentByUserId(userId);
+            buddyProgram.setAuthorName(student.getFullName());
+            buddyProgram.getBuddies().add(new BuddyScore(userId,student.getFullName(),0));
             studentProfileService.recordStudyBuddySession(userId, buddyProgram.getTitle());
             if(buddyProgram.isOpened()){
                 //notify that there is a new program

@@ -2,8 +2,10 @@ package com.brenda.clexis.clientGatewayService.controller.implementations;
 
 import com.brenda.clexis.clientGatewayService.controller.interfaces.StudentController;
 import com.brenda.clexis.clientGatewayService.model.dto.NotificationRequest;
+import com.brenda.clexis.clientGatewayService.model.dto.request.ChangePasswordRequest;
 import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import com.brenda.clexis.clientGatewayService.model.entity.Student;
+import com.brenda.clexis.clientGatewayService.service.interfaces.AuthService;
 import com.brenda.clexis.clientGatewayService.service.interfaces.StudentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StudentControllerImpl implements StudentController {
 
     private final StudentService studentService;
+    private final AuthService authService;
 
     @Override
     public ResponseEntity<ResponseDto> notifyStudent(NotificationRequest notificationRequest) {
@@ -30,6 +33,12 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
+    public ResponseEntity<ResponseDto> getStudentProfile(String userId) {
+        log.info("getting student profile: {}", userId);
+        return studentService.getStudentProfile(userId);
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> updateStudentInfo(Student student) {
         log.info("updating student info: {}", student);
         return studentService.updateStudent(student);
@@ -39,6 +48,13 @@ public class StudentControllerImpl implements StudentController {
     public ResponseEntity<ResponseDto> getStudentMatch() {
         log.info("getting student match");
         return studentService.findMatches();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> changePassword(ChangePasswordRequest changePasswordRequest) {
+        log.info("change password request : {} ...", changePasswordRequest);
+        return authService.changePassword(changePasswordRequest);
+
     }
 
     @Override

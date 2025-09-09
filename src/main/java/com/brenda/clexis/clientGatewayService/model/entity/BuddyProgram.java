@@ -22,6 +22,7 @@ public class BuddyProgram {
     private String id = UUID.randomUUID().toString();
     private String title;
     private String description;
+    private String authorName;
     private String deadline;
     private boolean opened;
     private String authorId;
