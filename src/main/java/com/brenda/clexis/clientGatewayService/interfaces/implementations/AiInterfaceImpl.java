@@ -25,10 +25,10 @@ public class AiInterfaceImpl implements AiInterface {
     private final WebClient webClient;
     private final Utils utils;
 
-    @Value("{api.ai.generateResource}")
+    @Value("${api.ai.generateResource}")
     private String generateResourceUrl;
 
-    @Value("{api.ai.getStudentMatches}")
+    @Value("${api.ai.getStudentMatches}")
     private String findMatchUrl;
 
     @Override
