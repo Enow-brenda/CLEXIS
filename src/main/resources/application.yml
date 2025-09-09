@@ -19,8 +19,8 @@ api:
     host: https://clexis-ai.up.railway.app
     port: 8000
     generateResource: ${api.ai.host}/api/v1/clexis_ai/tools/generate
-    getStudentMatches: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/tools/generate
-    resourceRecommendation: ${api.ai.host}:${api.ai.port.port}/api/v1/clexis_ai/resources/propose
+    getStudentMatches: ${api.ai.host}:${api.ai.port}/api/v1/clexis_ai/tools/generate
+    resourceRecommendation: ${api.ai.host}:${api.ai.port}/api/v1/clexis_ai/resources/propose
 
   notification:
     host: https://clexis-notification.up.railway.app

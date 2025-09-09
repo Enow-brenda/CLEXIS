@@ -21,10 +21,10 @@ public class NotificationInterfaceImpl implements NotificationInterface {
     private final WebClient webClient;
     private final Utils utils;
 
-    @Value("${api.notification.sendCustomEmail")
+    @Value("${api.notification.sendEmailCustom")
     private String sendCustomEmailUrl;
 
-    @Value("${api.notification.sendDefinedEmail}")
+    @Value("${api.notification.sendEmailDefined}")
     private String sendDefinedEmail;
 
     @Override
