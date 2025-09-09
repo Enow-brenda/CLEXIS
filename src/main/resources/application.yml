@@ -1,6 +1,6 @@
 server:
   port: ${PORT:8000}
-#  forward-headers-strategy: framework
+  forward-headers-strategy: framework
 
 spring:
   data:
