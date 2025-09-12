@@ -88,61 +88,148 @@ Content:
 
     return prompt.strip()
 
-def call_deepseek(prompt):
-    response = requests.post(
-        url="https://openrouter.ai/api/v1/chat/completions",
-        headers={
-            "Authorization": f"Bearer {apiKey}",
-            "HTTP-Referer": "no url",
-            "X-Title": "CLEXIS",
-            "Content-Type": "application/json"
-        },
-        data=json.dumps({
-            "model": "deepseek/deepseek-r1-0528:free",
-            "messages": [
-                {"role": "user", "content": prompt}
-            ]
-        })
-    )
 
-    resp_json = response.json()
-    # Extract the message content
-    content = resp_json["choices"][0]["message"]["content"]
-    return content
+def call_deepseek(prompt):
+    try:
+        response = requests.post(
+            url="https://openrouter.ai/api/v1/chat/completions",
+            headers={
+                "Authorization": f"Bearer {apiKey}",
+                "HTTP-Referer": "no url",
+                "X-Title": "CLEXIS",
+                "Content-Type": "application/json"
+            },
+            data=json.dumps({
+                "model": "deepseek/deepseek-r1-0528:free",
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ]
+            }),
+            timeout=30  # Add timeout to prevent hanging
+        )
+
+        # Check for HTTP errors
+        response.raise_for_status()
+
+        resp_json = response.json()
+
+        # Check for API errors in response
+        if "error" in resp_json:
+            raise ValueError(f"API Error: {resp_json['error']}")
+
+        # Check if choices exists and has content
+        if "choices" not in resp_json or not resp_json["choices"]:
+            raise ValueError("No choices in API response")
+
+        content = resp_json["choices"][0]["message"]["content"]
+        return content
+
+    except requests.exceptions.RequestException as e:
+        raise Exception(f"HTTP request failed: {str(e)}")
+    except KeyError as e:
+        raise Exception(f"Malformed API response: {str(e)}")
+
 
 def parse_response(task_type, response_text):
-    try:
-        cleaned = clean_json_string(response_text)
-        data = json.loads(cleaned)
-    except json.JSONDecodeError:
-        raise ValueError("Failed to parse JSON from response")
+    max_retries = 3
+    cleaned_text = response_text
 
-    if task_type == "SUMMARY":
-        return data.get("summary")
-    elif task_type == "FLASHCARD":
-        return data  # list of flashcard objects
-    elif task_type == "QUIZ":
-        return data  # list of quiz question objects
-    else:
-        raise ValueError("Invalid task type.")
+    for attempt in range(max_retries):
+        try:
+            # Try to clean the JSON string
+            cleaned_text = clean_json_string(response_text)
+
+            # Parse the JSON
+            data = json.loads(cleaned_text)
+
+            # Validate the response structure based on task type
+            if task_type == "SUMMARY":
+                if not isinstance(data, dict) or "summary" not in data:
+                    raise ValueError("Invalid summary response format")
+                return data.get("summary")
+
+            elif task_type == "FLASHCARD":
+                if not isinstance(data, list):
+                    raise ValueError("Flashcards response should be an array")
+                for card in data:
+                    if "question" not in card or "answer" not in card:
+                        raise ValueError("Invalid flashcard format")
+                return data
+
+            elif task_type == "QUIZ":
+                if not isinstance(data, list):
+                    raise ValueError("Quiz response should be an array")
+                for question in data:
+                    if "question" not in question or "correctOption" not in question:
+                        raise ValueError("Invalid quiz question format")
+                return data
+
+            else:
+                raise ValueError(f"Invalid task type: {task_type}")
+
+        except (json.JSONDecodeError, ValueError) as e:
+            if attempt == max_retries - 1:
+                raise ValueError(f"Failed to parse JSON after {max_retries} attempts: {str(e)}")
+
+            # Try to extract JSON from malformed response
+            json_match = re.search(r'(\[{.*}\]|{.*})', response_text, re.DOTALL)
+            if json_match:
+                response_text = json_match.group(1)
+                continue
+
+            raise
+
 
 def clean_json_string(raw_text):
-    # Remove Markdown fences if present
-    raw_text = re.sub(r"^```(?:json)?|```$", "", raw_text.strip(), flags=re.MULTILINE).strip()
+    # Remove Markdown code fences if present
+    raw_text = re.sub(r"^```(?:json)?\s*|```$", "", raw_text.strip(), flags=re.MULTILINE).strip()
 
-    # Ensure all double quotes inside strings are valid
-    raw_text = raw_text.replace("“", '"').replace("”", '"')
+    # Handle both smart quotes and regular quotes
+    raw_text = raw_text.replace("“", '"').replace("”", '"').replace("'", '"')
 
-    # Fix raw newlines inside strings
-    raw_text = re.sub(r'(?<!\\)\n', '\\n', raw_text)
+    # Fix escaped characters - this approach is problematic
+    # Let's use a more robust method
+    try:
+        # First try to parse directly
+        return raw_text
+    except:
+        # If that fails, try more aggressive cleaning
+        raw_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', raw_text)
+        return raw_text
 
-    return raw_text
 
 def getTheResource(task, content, count=None, difficulty=None):
-    prompt = generate_prompt(task, content, count or 10, difficulty or 2)
-    raw_response = call_deepseek(prompt)
-    parsed = parse_response(task, raw_response)
-    return parsed
+    try:
+        # Validate task type
+        valid_tasks = ["SUMMARY", "FLASHCARD", "QUIZ"]
+        if task not in valid_tasks:
+            raise ValueError(f"Task must be one of {valid_tasks}")
+
+        # Generate prompt
+        prompt = generate_prompt(task, content, count or 10, difficulty or 2)
+
+        # Call API
+        raw_response = call_deepseek(prompt)
+
+        # Parse response
+        parsed = parse_response(task, raw_response)
+
+        return {
+            "code": 200,
+            "message": "Success",
+            "data": parsed
+        }
+
+    except Exception as e:
+        # Log the full error for debugging
+        print(f"Error in getTheResource: {str(e)}")
+
+        return {
+            "code": 500,
+            "message": f"Error occurred while processing: {str(e)}",
+            "error": "processing_error",
+            "data": None
+        }
 
 # === Example usage ===
 if __name__ == "__main__":
