@@ -1,8 +1,14 @@
 import re
 import requests
 import json
+import logging
+
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 apiKey = "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"
+
 
 def difficulty_str_to_int(diff_str):
     mapping = {
@@ -14,204 +20,114 @@ def difficulty_str_to_int(diff_str):
     }
     return mapping.get(diff_str.lower(), 2)
 
+
 def generate_prompt(task_type, content, count=10, difficulty=2):
-    # Cap count to 20
-    count = min(count, 20) if count else 10
+    count = min(count, 5)  # Reduce for faster response
     if isinstance(difficulty, str):
         difficulty = difficulty_str_to_int(difficulty)
 
+    # Truncate content to prevent long processing
+    max_content = 800
+    truncated_content = content[:max_content] + "..." if len(content) > max_content else content
+
     if task_type == "SUMMARY":
-        prompt = f"""
-Please summarize the following content well Make it well detailed keeping all the key points and facts:
+        prompt = f"""Summarize this content briefly:
 
-{content}
+{truncated_content}
 
-Respond ONLY with a JSON object:
+Respond with JSON: {{"summary": "summary text"}}"""
 
-{{
-  "summary": "your summary text here"
-}}
-"""
     elif task_type == "FLASHCARD":
-        prompt = f"""
-Generate {count} flashcards of difficulty {difficulty} from the following content.
+        prompt = f"""Create {count} flashcards. Be concise.
 
-Each flashcard should be an object with these keys:  
-- "question": question or term  
-- "answer": answer or explanation
+Content: {truncated_content}
 
-Respond ONLY with a JSON array of flashcard objects like this:
+Respond with JSON array: [{{"question": "Q?", "answer": "A."}}]"""
 
-[
-  {{
-    "question": "What is photosynthesis?",
-    "answer": "Photosynthesis is the process by which plants convert sunlight into chemical energy."
-  }},
-  ...
-]
-
-Content:
-{content}
-"""
     elif task_type == "QUIZ":
-        prompt = f"""
-Create a quiz of {count} multiple-choice questions with difficulty {difficulty} based on the following content.
+        prompt = f"""Create {count} quiz questions. Be brief.
 
-Each question should have:  
-- "question": the question text  
-- "option1": a possible answer  
-- "option2": a possible answer  
-- "option3": a possible answer  
-- "option4": a possible answer  
-- "correctOption": (1-4) corresponding to the correct option number  
-- "difficulty": a number from 1 to 4 representing difficulty level
+Content: {truncated_content}
 
-Respond ONLY with a JSON array like this:
+Respond with JSON array: [{{"question": "Q?", "option1": "A", "option2": "B", "option3": "C", "option4": "D", "correctOption": 1}}]"""
 
-[
-  {{
-    "question": "What is the main pigment in photosynthesis?",
-    "option1": "Chlorophyll",
-    "option2": "Carotenoid",
-    "option3": "Xanthophyll",
-    "option4": "Enzymes",
-    "correctOption": 1,
-  }},
-  ...
-]
-
-Content:
-{content}
-"""
     else:
-        raise ValueError(f"Invalid task type. Choose from summary, flashcards, or quiz. you gave {task_type}")
+        raise ValueError(f"Invalid task type: {task_type}")
 
     return prompt.strip()
 
 
 def call_deepseek(prompt):
+    """Call API with aggressive timeout for gateway compatibility"""
     try:
+        # VERY short timeout - most important fix!
         response = requests.post(
             url="https://openrouter.ai/api/v1/chat/completions",
             headers={
                 "Authorization": f"Bearer {apiKey}",
-                "HTTP-Referer": "no url",
+                "HTTP-Referer": "https://clexis.app",
                 "X-Title": "CLEXIS",
                 "Content-Type": "application/json"
             },
-            data=json.dumps({
+            json={
                 "model": "deepseek/deepseek-r1-0528:free",
-                "messages": [
-                    {"role": "user", "content": prompt}
-                ]
-            }),
-            timeout=30  # Add timeout to prevent hanging
+                "messages": [{"role": "user", "content": prompt}],
+                "max_tokens": 300,  # Reduced output
+                "temperature": 0.7
+            },
+            timeout=8  # VERY IMPORTANT: Short timeout for gateway
         )
 
-        # Check for HTTP errors
         response.raise_for_status()
-
         resp_json = response.json()
 
-        # Check for API errors in response
-        if "error" in resp_json:
-            raise ValueError(f"API Error: {resp_json['error']}")
-
-        # Check if choices exists and has content
         if "choices" not in resp_json or not resp_json["choices"]:
-            raise ValueError("No choices in API response")
+            raise Exception("No choices in response")
 
-        content = resp_json["choices"][0]["message"]["content"]
-        return content
+        return resp_json["choices"][0]["message"]["content"]
 
+    except requests.exceptions.Timeout:
+        raise Exception("AI service timeout - request took too long")
     except requests.exceptions.RequestException as e:
-        raise Exception(f"HTTP request failed: {str(e)}")
-    except KeyError as e:
-        raise Exception(f"Malformed API response: {str(e)}")
-
-
-def parse_response(task_type, response_text):
-    max_retries = 3
-    cleaned_text = response_text
-
-    for attempt in range(max_retries):
-        try:
-            # Try to clean the JSON string
-            cleaned_text = clean_json_string(response_text)
-
-            # Parse the JSON
-            data = json.loads(cleaned_text)
-
-            # Validate the response structure based on task type
-            if task_type == "SUMMARY":
-                if not isinstance(data, dict) or "summary" not in data:
-                    raise ValueError("Invalid summary response format")
-                return data.get("summary")
-
-            elif task_type == "FLASHCARD":
-                if not isinstance(data, list):
-                    raise ValueError("Flashcards response should be an array")
-                for card in data:
-                    if "question" not in card or "answer" not in card:
-                        raise ValueError("Invalid flashcard format")
-                return data
-
-            elif task_type == "QUIZ":
-                if not isinstance(data, list):
-                    raise ValueError("Quiz response should be an array")
-                for question in data:
-                    if "question" not in question or "correctOption" not in question:
-                        raise ValueError("Invalid quiz question format")
-                return data
-
-            else:
-                raise ValueError(f"Invalid task type: {task_type}")
-
-        except (json.JSONDecodeError, ValueError) as e:
-            if attempt == max_retries - 1:
-                raise ValueError(f"Failed to parse JSON after {max_retries} attempts: {str(e)}")
-
-            # Try to extract JSON from malformed response
-            json_match = re.search(r'(\[{.*}\]|{.*})', response_text, re.DOTALL)
-            if json_match:
-                response_text = json_match.group(1)
-                continue
-
-            raise
+        raise Exception(f"Network error: {str(e)}")
+    except (KeyError, IndexError) as e:
+        raise Exception(f"Invalid response format: {str(e)}")
 
 
 def clean_json_string(raw_text):
-    # Remove Markdown code fences if present
-    raw_text = re.sub(r"^```(?:json)?\s*|```$", "", raw_text.strip(), flags=re.MULTILINE).strip()
+    cleaned = re.sub(r"```(?:json)?|```", "", raw_text)
+    cleaned = cleaned.replace("“", '"').replace("”", '"')
+    return cleaned.strip()
 
-    # Handle both smart quotes and regular quotes
-    raw_text = raw_text.replace("“", '"').replace("”", '"').replace("'", '"')
 
-    # Fix escaped characters - this approach is problematic
-    # Let's use a more robust method
+def parse_response(task_type, response_text):
     try:
-        # First try to parse directly
-        return raw_text
-    except:
-        # If that fails, try more aggressive cleaning
-        raw_text = re.sub(r'(?<!\\)\\(?!["\\/bfnrt]|u[0-9a-fA-F]{4})', r'\\\\', raw_text)
-        return raw_text
+        cleaned = clean_json_string(response_text)
+        data = json.loads(cleaned)
+
+        if task_type == "SUMMARY":
+            return data.get("summary", "No summary generated")
+        elif task_type in ["FLASHCARD", "QUIZ"]:
+            return data if isinstance(data, list) else []
+        else:
+            raise ValueError(f"Unknown task type: {task_type}")
+
+    except json.JSONDecodeError:
+        return response_text  # Fallback to raw text
 
 
 def getTheResource(task, content, count=None, difficulty=None):
+    """Main function with timeout protection"""
     try:
-        # Validate task type
-        valid_tasks = ["SUMMARY", "FLASHCARD", "QUIZ"]
-        if task not in valid_tasks:
-            raise ValueError(f"Task must be one of {valid_tasks}")
+        if not content or len(content.strip()) < 10:
+            return {
+                "code": 400,
+                "message": "Content too short",
+                "data": None
+            }
 
-        # Generate prompt
-        prompt = generate_prompt(task, content, count or 10, difficulty or 2)
-
-        # Call API
+        prompt = generate_prompt(task, content, count, difficulty)
         raw_response = call_deepseek(prompt)
-
-        # Parse response
         parsed = parse_response(task, raw_response)
 
         return {
@@ -221,13 +137,9 @@ def getTheResource(task, content, count=None, difficulty=None):
         }
 
     except Exception as e:
-        # Log the full error for debugging
-        print(f"Error in getTheResource: {str(e)}")
-
         return {
             "code": 500,
-            "message": f"Error occurred while processing: {str(e)}",
-            "error": "processing_error",
+            "message": f"Error: {str(e)}",
             "data": None
         }
 
