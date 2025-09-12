@@ -45,7 +45,11 @@ public class SocialsServiceImpl implements SocialService {
                     .responses(List.of())
                     .build();
             //notify others about this
-            studentProfileService.recordForumParticipation(discussion.getUserId());
+
+//            studentProfileService.recordForumParticipation(discussion.getUserId());
+            Student studen = studentRepository.findStudentByUserId(jWTUtils.extractUserId(learningPathService.getToken()));
+            studen.setPoints(studen.getPoints() + 1);
+            studentRepository.save(studen);
             return MainResponse.responseOk(discussionRepository.save(discussion));
         }catch (Exception e){
             return MainResponse.responseError(e.getMessage());
@@ -76,8 +80,8 @@ public class SocialsServiceImpl implements SocialService {
                                .build();
                buddies.add(newBuddy);
                program.setBuddies(buddies);
-               buddyProgramRepository.save(program);
-               studentProfileService.recordStudyBuddySession(newBuddy.getUserId(), program.getTitle());
+
+//               studentProfileService.recordStudyBuddySession(newBuddy.getUserId(), program.getTitle());
                //notify other buddies
                return MainResponse.responseOk("Welcome to the study program "+ program.getTitle());
             }
@@ -121,7 +125,10 @@ public class SocialsServiceImpl implements SocialService {
             Student student = studentRepository.findStudentByUserId(userId);
             buddyProgram.setAuthorName(student.getFullName());
             buddyProgram.getBuddies().add(new BuddyScore(userId,student.getFullName(),0));
-            studentProfileService.recordStudyBuddySession(userId, buddyProgram.getTitle());
+            Student studen = studentRepository.findStudentByUserId(jWTUtils.extractUserId(learningPathService.getToken()));
+            studen.setPoints(studen.getPoints() + 1);
+            studentRepository.save(studen);
+//            studentProfileService.recordStudyBuddySession(userId, buddyProgram.getTitle());
             if(buddyProgram.isOpened()){
                 //notify that there is a new program
                 System.out.println(buddyProgram.getTitle());

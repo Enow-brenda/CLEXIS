@@ -23,7 +23,6 @@ public class SocialsControllerImpl implements SocialsController {
     public ResponseEntity<ResponseDto> addDiscussion(DiscussionDto discussionDto) {
         log.info("adding discussion: {}", discussionDto);
         return socialService.addDiscussion(discussionDto);
-
     }
 
     @Override

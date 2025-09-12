@@ -4,6 +4,7 @@ import com.brenda.clexis.clientGatewayService.model.dto.ResourceDto;
 import com.brenda.clexis.clientGatewayService.model.dto.response.MainResponse;
 import com.brenda.clexis.clientGatewayService.model.dto.response.ResponseDto;
 import com.brenda.clexis.clientGatewayService.model.entity.Resource;
+import com.brenda.clexis.clientGatewayService.model.entity.Student;
 import com.brenda.clexis.clientGatewayService.model.entity.User;
 import com.brenda.clexis.clientGatewayService.repository.ResourceRepository;
 import com.brenda.clexis.clientGatewayService.repository.StudentRepository;
@@ -30,6 +31,7 @@ public class ResourceServiceImpl implements ResourceService {
     private final LearningPathService learningPathService;
     private final UserRepository userRepository;
     private final StudentProfileService studentProfileService;
+    private final StudentRepository studentRepository;
 
 
     @Override
@@ -83,6 +85,10 @@ public class ResourceServiceImpl implements ResourceService {
                 //notify if resource is free
                 System.out.println("Free resource");
             }
+
+            Student studen = studentRepository.findStudentByUserId(jWTUtils.extractUserId(learningPathService.getToken());
+            studen.setPoints(studen.getPoints() + 1);
+            studentRepository.save(studen);
 
 //            studentProfileService.recordResourceShared(resource.getUserId(),resource.getType().name());
             return MainResponse.responseOk(resourceRepository.save(resource));
