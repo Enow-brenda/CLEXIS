@@ -20,6 +20,9 @@ public interface StudentController {
     @GetMapping("profile/get/{userId}")
     ResponseEntity<ResponseDto> getStudentProfile(@PathVariable String userId);
 
+    @GetMapping("profile/getAll")
+    ResponseEntity<ResponseDto> getAllStudentProfile();
+
     @PutMapping("info/update")
     ResponseEntity<ResponseDto> updateStudentInfo(@RequestBody Student student);
 

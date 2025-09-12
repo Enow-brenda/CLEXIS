@@ -239,5 +239,120 @@ public class StudentServiceImpl implements StudentService {
         }
     }
 
+    @Override
+    public ResponseEntity<ResponseDto> getALLStudentProfile() {
+        List<StudentProfileObject> studentProfileObjects = new ArrayList<>();
+        for(Student student : studentRepository.findAll()) {
+            var userId = student.getUserId();
+            var user = userRepository.findUserById(userId);
+            if(student == null){
+                return MainResponse.responseNotFound("Student Not Found");
+            }
+
+
+            StudentProfileObject studentProfileObject = StudentProfileObject.builder()
+                    .email(user.getEmail())
+                    .userId(userId)
+                    .bioOrInterest(student.getBioOrInterest())
+                    .academicLevel(student.getAcademicLevel().toString())
+                    .profession(student.getProfession())
+                    .language(student.getLanguage())
+                    .points(student.getPoints())
+                    .completedTasks(0)
+                    .fullName(student.getFullName())
+                    .rank(0)
+                    .programs(0)
+                    .discussions(0)
+                    .resourceShared(0)
+                    .tasks(0)
+                    .dateCreated(student.getDateCreated())
+                    .recentPrograms(List.of())
+                    .recentResources(List.of())
+                    .learningPath(0)
+                    .phoneNumber(student.getPhoneNumber())
+                    .build();
+            var activeL = learningPathRepository.findLearningPathByActiveIsTrueAndUserId(student.getUserId());
+
+            if (activeL != null) {
+                LocalDate now = LocalDate.now();
+                WeekFields weekFields = WeekFields.of(Locale.getDefault());
+                int currentWeek = now.get(weekFields.weekOfWeekBasedYear());
+                int currentYear = now.getYear();
+
+                // Define formatter matching your string format dd-MM-yyyy
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+                // Flatten all tasks from all modules
+                List<Task> allTasks = activeL.getModules()
+                        .stream()
+                        .flatMap(module -> module.getTasks().stream())
+                        .toList();
+
+                // Filter tasks belonging to the current week
+                List<Task> tasksThisWeek = allTasks.stream()
+                        .filter(task -> {
+                            try {
+                                LocalDate taskDate = LocalDate.parse(task.getDate(), formatter);
+                                int taskWeek = taskDate.get(weekFields.weekOfWeekBasedYear());
+                                int taskYear = taskDate.getYear();
+                                return taskWeek == currentWeek && taskYear == currentYear;
+                            } catch (Exception e) {
+                                return false; // ignore invalid date strings
+                            }
+                        })
+                        .toList();
+
+                long totalTasksThisWeek = tasksThisWeek.size();
+                long doneTasksThisWeek = tasksThisWeek.stream()
+                        .filter(task -> task.isCompleted()) // adjust to your status field
+                        .count();
+
+                studentProfileObject.setCompletedTasks((int)doneTasksThisWeek);
+                studentProfileObject.setTasks((int)totalTasksThisWeek);
+            }
+            var learningPaths = learningPathRepository.findLearningPathsByUserId(userId);
+            studentProfileObject.setLearningPath(learningPaths.size());
+            var allResources = resourceRepository.findResourcesByUserId(userId);
+            var firstFive = allResources.stream().limit(5).toList();
+            studentProfileObject.setRecentResources(firstFive);
+            studentProfileObject.setResourceShared(allResources.size());
+
+            var discussions = discussionRepository.findByAuthorIdOrResponseUserId(userId);
+            studentProfileObject.setDiscussions(discussions.size());
+
+            var recentPrograms = buddyProgramRepository.findByBuddiesUserId(userId);
+            var firstFiveP = recentPrograms.stream().limit(5).toList();
+            studentProfileObject.setRecentPrograms(firstFiveP);
+            studentProfileObject.setPrograms(recentPrograms.size());
+
+            List<Student> students = studentRepository.findAll();
+            // Sort students descending by points
+            students.sort((s1, s2) -> Double.compare(s2.getPoints(), s1.getPoints()));
+
+            // Assign ranks
+            int rank = 1;
+            double previousPoints = -1;
+            int sameRankCount = 0;
+
+            for (int i = 0; i < students.size(); i++) {
+                Student s = students.get(i);
+
+                if (s.getPoints() == previousPoints) {
+                    sameRankCount++;
+                } else {
+                    rank += sameRankCount;
+                    sameRankCount = 1;
+                    previousPoints = s.getPoints();
+                }
+            }
+
+            studentProfileObject.setRank(rank);
+
+            studentProfileObjects.add(studentProfileObject);
+
+        }
+        return MainResponse.responseOk(studentProfileObjects);
+    }
+
 
 }

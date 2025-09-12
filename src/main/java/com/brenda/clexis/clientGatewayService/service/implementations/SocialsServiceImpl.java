@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -36,8 +38,10 @@ public class SocialsServiceImpl implements SocialService {
     @Override
     public ResponseEntity<ResponseDto> addDiscussion(DiscussionDto discussionDto) {
         try{
+            LocalDate today = LocalDate.now();
+            String formattedDate = today.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             Discussion discussion = Discussion.builder()
-                    .date("date")
+                    .date(formattedDate)
                     .discussionBody(discussionDto.getDiscussionBody())
                     .discussionTitle(discussionDto.getDiscussionTitle())
                     .userId(jWTUtils.extractUserId(learningPathService.getToken()))

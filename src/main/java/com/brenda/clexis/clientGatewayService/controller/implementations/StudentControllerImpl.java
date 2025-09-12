@@ -39,10 +39,18 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
+    public ResponseEntity<ResponseDto> getAllStudentProfile() {
+        log.info("getting  all student profile: {}");
+        return studentService.getALLStudentProfile();
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> updateStudentInfo(Student student) {
         log.info("updating student info: {}", student);
         return studentService.updateStudent(student);
     }
+
+
 
     @Override
     public ResponseEntity<ResponseDto> getStudentMatch() {

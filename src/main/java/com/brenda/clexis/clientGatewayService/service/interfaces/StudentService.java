@@ -18,4 +18,6 @@ public interface StudentService {
     ResponseEntity<ResponseDto> getNotifications();
 
     ResponseEntity<ResponseDto> getStudentProfile(String userId);
+
+    ResponseEntity<ResponseDto> getALLStudentProfile();
 }
