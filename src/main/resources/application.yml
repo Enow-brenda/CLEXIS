@@ -1,12 +1,37 @@
 server:
   port: ${PORT:8000}
   forward-headers-strategy: framework
+  tomcat:
+    connection-timeout: 30s
+    keep-alive-timeout: 30s
+    max-connections: 1000
+
+# HTTP Client timeouts for RestTemplate
+http:
+  client:
+    connect-timeout: 10000
+    read-timeout: 30000
+
+# If using Feign client
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 10000
+        readTimeout: 30000
 
 spring:
   data:
     mongodb:
       uri: mongodb+srv://enowbrenda91106:clexis91106@cluster0.fnr4gwb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
       database: clexis-db
+  mvc:
+    async:
+      request-timeout: 30s
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 defaultUser:
   username: admin
