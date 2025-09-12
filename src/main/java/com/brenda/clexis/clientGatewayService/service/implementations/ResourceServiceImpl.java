@@ -86,7 +86,7 @@ public class ResourceServiceImpl implements ResourceService {
                 System.out.println("Free resource");
             }
 
-            Student studen = studentRepository.findStudentByUserId(jWTUtils.extractUserId(learningPathService.getToken());
+            Student studen = studentRepository.findStudentByUserId(jWTUtils.extractUserId(learningPathService.getToken()));
             studen.setPoints(studen.getPoints() + 1);
             studentRepository.save(studen);
 
